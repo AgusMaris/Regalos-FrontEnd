@@ -17,12 +17,31 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
           elevation: 8,
           backgroundColor: '#fff',
           borderRadius: 10,
-          padding: 10,
           width: HEIGHT / 6,
           height: HEIGHT / 6,
         }}
       >
-        <Image source={{ uri: gift.imgSource }} style={{}} />
+        {gift.imgSource !== '' ? (
+          <Image
+            source={{ uri: gift.imgSource }}
+            style={{
+              marginTop: 10,
+              height: '75%',
+              resizeMode: 'contain',
+            }}
+          />
+        ) : null}
+        <View
+          style={{
+            backgroundColor: colors.primary,
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            height: 10,
+            borderBottomEndRadius: 10,
+            borderBottomStartRadius: 10,
+          }}
+        />
       </View>
       <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
         {gift.name}

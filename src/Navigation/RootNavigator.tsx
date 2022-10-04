@@ -28,6 +28,9 @@ export default function RootNavigator({}: Props) {
           <>
             <RootStack.Screen
               name="GiftResults"
+              options={{
+                headerShown: false,
+              }}
               component={(props) => <GiftResultsScreen {...props} setAuth={toggleAuth} />}
             />
             <RootStack.Screen
