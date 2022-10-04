@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "name": "Pelota de futbol",
+      "imgSource": "",
+      "tags": ["futbol", "pelota", "deporte"]
+    },
+    {
+      "name": "PlayStation 5",
+      "imgSource": "",
+      "tags": ["videojuegos", "consola", "playstation"]
+    },
+    {
+      "name": "Auto Hot Wheels",
+      "imgSource": "",
+      "tags": ["juguete", "coche", "hotWheels"]
+    },
+    {
+      "name": "Patineta",
+      "imgSource": "",
+      "tags": ["deporte", "patineta", "transporte"]
+    },
+    {
+      "name": "Bicicleta",
+      "imgSource": "",
+      "tags": ["deporte", "bicicleta", "transporte"]
+    },
+    {
+      "name": "Pelota de tenis",
+      "imgSource": "",
+      "tags": ["tenis", "pelota", "deporte"]
+    },
+    {
+      "name": "Pelota de baloncesto",
+      "imgSource": "",
+      "tags": ["baloncesto", "pelota", "deporte"]
+    },
+    {
+      "name": "Pelota de voleibol",
+      "imgSource": "",
+      "tags": ["voleibol", "pelota", "deporte"]
+    }
+  ]
+}
