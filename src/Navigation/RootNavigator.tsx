@@ -26,15 +26,17 @@ export default function RootNavigator({}: Props) {
           />
         ) : (
           <>
-            <RootStack.Screen
-              name="Login"
-              component={(props) => <LoginScreen {...props} setAuth={toggleAuth} />}
-            />
-
-            <RootStack.Screen
+          <RootStack.Screen
               name="Register"
               component={(props) => <RegisterScreen {...props} setAuth={toggleAuth} />}
             />
+            
+            <RootStack.Screen
+              name="Login"
+              component={(props) => <LoginScreen {...props} setAuth1={toggleAuth} />}
+            />
+
+            
             <RootStack.Screen
               name="GiftResults"
               component={(props) => <GiftResultsScreen {...props} setAuth={toggleAuth} />}
