@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {LogBox} from 'react-native' 
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from '../Screens/Home'
@@ -19,6 +20,7 @@ export type RootStackParamList = {
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
 
+LogBox.ignoreAllLogs()
 export default function RootNavigator({}: Props) {
   const [auth, setAuth] = useState(false)
 
@@ -29,31 +31,39 @@ export default function RootNavigator({}: Props) {
     <NavigationContainer>
       <RootStack.Navigator>
         {auth ? (
+          <>
+            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
+            <RootStack.Screen
+            name="GiftResults"
+            options={{
+            headerShown: false,
+            }}
+            component={GiftResultsScreen}
+            />
+          
           <RootStack.Screen
             name="Home"
-            component={(props) => <HomeScreen {...props} setAuth={toggleAuth} />}
+            component={(props) => <HomeScreen {...props} setAuth={toggleAuth} />
+          }
           />
+          </>
         ) : (
           <>
-              <RootStack.Screen
+            <RootStack.Screen
               name="Login"
+              options={{
+                headerShown: false,
+              }}
               component={(props) => <LoginScreen {...props} setAuth={toggleAuth} />}
             />
-              <RootStack.Screen
+            <RootStack.Screen
               name="Register"
               options={{
                 headerShown: false,
               }}
               component={(props) => <RegisterScreen {...props} setAuth={toggleAuth} />}
             />
-            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
-            <RootStack.Screen
-              name="GiftResults"
-              options={{
-                headerShown: false,
-              }}
-              component={GiftResultsScreen}
-            />
+
           </>
         )}
       </RootStack.Navigator>
