@@ -35,28 +35,24 @@ export default function RootNavigator({}: Props) {
           />
         ) : (
           <>
-            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
-            <RootStack.Screen
+              <RootStack.Screen
+              name="Login"
+              component={(props) => <LoginScreen {...props} setAuth={toggleAuth} />}
+            />
+              <RootStack.Screen
               name="Register"
               options={{
                 headerShown: false,
               }}
-<<<<<<< HEAD
-              component={GiftResultsScreen}
-=======
               component={(props) => <RegisterScreen {...props} setAuth={toggleAuth} />}
->>>>>>> master
             />
-            <RootStack.Screen
-              name="Login"
-              component={(props) => <LoginScreen {...props} setAuth={toggleAuth} />}
-            />
+            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
             <RootStack.Screen
               name="GiftResults"
               options={{
                 headerShown: false,
               }}
-              component={(props) => <GiftResultsScreen {...props} setAuth={toggleAuth} />}
+              component={GiftResultsScreen}
             />
           </>
         )}
