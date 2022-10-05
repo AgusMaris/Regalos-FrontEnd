@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "title": "Le gusta el deporte?",
+      "answers": [
+        { "text": "Si", "value": 1, "id": "1" },
+        { "text": "No", "value": 0, "id": "2" }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Le gusta la musica?",
+      "answers": [
+        { "text": "Si", "value": 1, "id": "3" },
+        { "text": "No", "value": 0, "id": "4" }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Le gusta la lectura?",
+      "answers": [
+        { "text": "Si", "value": 1, "id": "5" },
+        { "text": "No", "value": 0, "id": "6" }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Le gusta la tecnologia?",
+      "answers": [
+        { "text": "Si", "value": 1, "id": "7" },
+        { "text": "No", "value": 0, "id": "8" }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Le gusta la naturaleza?",
+      "answers": [
+        { "text": "Si", "value": 1, "id": "9" },
+        { "text": "No", "value": 0, "id": "10" }
+      ]
+    }
+  ]
+}

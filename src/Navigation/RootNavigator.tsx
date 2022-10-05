@@ -5,10 +5,19 @@ import HomeScreen from '../Screens/Home'
 import LoginScreen from '../Screens/Login'
 import RegisterScreen from '../Screens/Register'
 import GiftResultsScreen from '../Screens/GiftResults'
+import QuestionsScreen from '../Screens/Questions'
 
 type Props = {}
 
-const RootStack = createNativeStackNavigator()
+export type RootStackParamList = {
+  Home: undefined
+  Login: undefined
+  Register: undefined
+  GiftResults: undefined
+  Questions: undefined
+}
+
+const RootStack = createNativeStackNavigator<RootStackParamList>()
 
 export default function RootNavigator({}: Props) {
   const [auth, setAuth] = useState(false)
@@ -26,12 +35,13 @@ export default function RootNavigator({}: Props) {
           />
         ) : (
           <>
+            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
             <RootStack.Screen
               name="GiftResults"
               options={{
                 headerShown: false,
               }}
-              component={(props) => <GiftResultsScreen {...props} setAuth={toggleAuth} />}
+              component={GiftResultsScreen}
             />
             <RootStack.Screen
               name="Login"
