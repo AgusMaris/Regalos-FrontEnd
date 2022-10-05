@@ -12,3 +12,9 @@ web-build/
 
 # macOS
 .DS_Store
+src/Navigation/RootNavigator.tsx
+package-lock.json
+package.json
+tsconfig.json
+yarn.lock
+src/Navigation/RootNavigator.tsx
