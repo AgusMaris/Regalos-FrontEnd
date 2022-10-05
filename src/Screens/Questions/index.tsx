@@ -1,14 +1,12 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useEffect, useReducer, useState } from 'react'
+import { View, Text, TouchableOpacity, Animated } from 'react-native'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { Container } from '../../Components/Container'
 import Background2 from '../../Components/Backgrounds/Background2'
 import Questions from './MockedQuestions.json'
 import { Question, Result } from '../../schemas/Question'
 import colors from '../../Assets/colors'
 import { v4 as uuidv4 } from 'uuid'
-import { useFocusEffect, useIsFocused } from '@react-navigation/native'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../Navigation/RootNavigator'
+import { useIsFocused } from '@react-navigation/native'
 import { QuestionsScreenProps } from './types'
 
 const questionsData = Questions.data
@@ -58,6 +56,7 @@ const QuestionsReducer = (state: QuestionsState, action: QuestionsActions): Ques
 }
 
 const QuestionsScreen = (props: QuestionsScreenProps) => {
+  const fadeAnim = useRef(new Animated.Value(1)).current
   const [state, dispatch] = useReducer(QuestionsReducer, {
     questions: questionsData,
     currentQuestion: 0,
@@ -70,6 +69,31 @@ const QuestionsScreen = (props: QuestionsScreenProps) => {
       dispatch({ type: 'reset' })
     }
   }, [isFocused])
+
+  const fadeIn = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 175,
+      useNativeDriver: true,
+    }).start()
+  }
+
+  const fadeOut = (cb?: () => void) => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 175,
+      useNativeDriver: true,
+    }).start(() => {
+      cb?.()
+    })
+  }
+
+  const handleNextQuestion = (answerId: string) => {
+    fadeOut(() => {
+      dispatch({ type: 'addResult', payload: { answerId } })
+      fadeIn()
+    })
+  }
 
   useEffect(() => {
     console.log(state)
@@ -96,7 +120,7 @@ const QuestionsScreen = (props: QuestionsScreenProps) => {
         </Text>
         <View style={{ marginTop: 250 }}>
           {state.questions.length > state.currentQuestion && (
-            <>
+            <Animated.View style={{ opacity: fadeAnim }}>
               <Text style={{ color: colors.primary, fontSize: 30, fontWeight: '900', marginBottom: 50 }}>
                 {state.questions[state.currentQuestion].title}
               </Text>
@@ -111,9 +135,7 @@ const QuestionsScreen = (props: QuestionsScreenProps) => {
                       paddingVertical: 15,
                       marginBottom: 75,
                     }}
-                    onPress={() => {
-                      dispatch({ type: 'addResult', payload: { answerId: answer.id } })
-                    }}
+                    onPress={() => handleNextQuestion(answer.id)}
                     key={answer.id}
                   >
                     <Text style={{ color: colors.white, fontSize: 20, fontWeight: '700' }}>
@@ -122,7 +144,7 @@ const QuestionsScreen = (props: QuestionsScreenProps) => {
                   </TouchableOpacity>
                 ))}
               </View>
-            </>
+            </Animated.View>
           )}
         </View>
       </View>
