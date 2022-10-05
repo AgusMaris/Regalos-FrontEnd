@@ -12,9 +12,3 @@ export const passwordValidator = (password: string) => {
 
 	return "";
 };
-
-export const nameValidator = (name: string) => {
-	if (!name || name.length <= 0) return "Ingrese su nombre";
-
-	return "";
-};

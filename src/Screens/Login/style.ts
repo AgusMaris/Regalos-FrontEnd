@@ -7,34 +7,45 @@ export const loginStyle = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "row",
-        backgroundColor: "#888C87"
+        backgroundColor: "#888C87",
     },
     view: {
-        /**width:"80"**/
+        width: "80%",
+        height: "70%",
+        backgroundColor: "#3A3940",
+        margin: 3,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 10
     },
-    card:{
+    card: {
         backgroundColor: "#3A3940",
         borderWidth: 1,
         borderRadius: 10,
         borderColor: '#FA7A44'
     },
     cardTitle: {
-        //**backgroundColor: "#888C87",**//
         color: "#FA7A44",
         fontWeight: "bold",
-        textAlign: "center",
-        fontSize: 32,
-        margin: 2,
+        fontSize:24,
+        margin: 1,
     },
-    cardButton:{
+    cardButton: {
         backgroundColor: "#FA7A44",
-        margin: 3,
+        margin: 4,
         borderColor: '#ccc',
         borderWidth: 1,
-        borderRadius: 10, 
+        borderRadius: 20
     },
     input: {
-        margin: 3,
+        /* no encuentro como cambiar el color violeta
+        selectionColor: "#FA7A44",
+        underlineColor: "#FA7A44",
+        activeUnderlineColor: "#FA7A44",
+        outlineColor: "#FA7A44",
+        activeOutlineColor: "#FA7A44",
+        */
+        margin: 2,
         height: 50,
         backgroundColor: '#C0D1CD', 
     },
