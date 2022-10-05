@@ -8,7 +8,15 @@ export const emailValidator = (email: string) => {
 };
 
 export const passwordValidator = (password: string) => {
-	if (!password || password.length <= 0) return "Ingrese su contraseña";
+	if (!password || password.length <= 4) return "Ingrese su contraseña";
 
 	return "";
 };
+
+export const confirmpasswordValidator = (confirmpassword: string, password: string) => {
+	if (!confirmpassword || confirmpassword.length <= 4 || confirmpassword !== password) return "Ingrese su contraseña";
+
+	return "";
+};
+
+
