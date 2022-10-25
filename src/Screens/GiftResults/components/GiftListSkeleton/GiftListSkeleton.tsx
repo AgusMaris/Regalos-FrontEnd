@@ -11,18 +11,12 @@ const GiftListSkeleton = (props) => (
     foregroundColor="#ecebeb"
     {...props}
   >
-    <Rect x="64" y="4" rx="8" ry="8" width="200" height="200" />
-    <Rect x="64" y="224" rx="12" ry="12" width="200" height="24" />
-    <Rect x="326" y="4" rx="8" ry="8" width="200" height="200" />
-    <Rect x="326" y="224" rx="12" ry="12" width="200" height="24" />
-    <Rect x="64" y="310" rx="8" ry="8" width="200" height="200" />
-    <Rect x="64" y="530" rx="12" ry="12" width="200" height="24" />
-    <Rect x="326" y="310" rx="8" ry="8" width="200" height="200" />
-    <Rect x="326" y="530" rx="12" ry="12" width="200" height="24" />
-    <Rect x="64" y="591" rx="8" ry="8" width="200" height="200" />
-    <Rect x="64" y="811" rx="12" ry="12" width="200" height="24" />
-    <Rect x="326" y="591" rx="8" ry="8" width="200" height="200" />
-    <Rect x="326" y="811" rx="12" ry="12" width="200" height="24" />
+    <Rect x="180" y="4" rx="8" ry="8" width="240" height="240" />
+    <Rect x="64" y="280" rx="8" ry="8" width="400" height="200" />
+
+    <Rect x="64" y="500" rx="8" ry="8" width="400" height="200" />
+
+    <Rect x="64" y="720" rx="8" ry="8" width="400" height="200" />
   </ContentLoader>
 )
 

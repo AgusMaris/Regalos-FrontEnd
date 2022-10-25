@@ -41,7 +41,7 @@ const GiftResultsScreen = ({ navigation }: GiftResultsScreenProps) => {
           <>
             <FlatList
               data={gifts.data}
-              numColumns={2}
+              numColumns={1}
               keyExtractor={(item) => item.name}
               ListHeaderComponent={<MysteriousBox />}
               renderItem={({ item }) => <GiftListItem gift={item} />}

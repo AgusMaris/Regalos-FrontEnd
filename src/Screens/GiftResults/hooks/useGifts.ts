@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { delay } from '../../../utils/functions'
 import { AsyncState } from '../../../utils/types'
-import Gifts from '../MockedGifts.json'
+import Gifts from '../../../Api/MockedGifts.json'
 const giftsData = Gifts.data
 
 export default function useGifts() {
