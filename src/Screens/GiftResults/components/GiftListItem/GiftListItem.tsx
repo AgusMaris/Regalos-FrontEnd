@@ -11,26 +11,33 @@ const HEIGHT = Dimensions.get('window').height
 
 const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
   return (
-    <View style={{ flexBasis: '50%', alignItems: 'center', marginTop: 20 }}>
+    <View style={{ alignItems: 'center', marginTop: 20 }}>
       <View
         style={{
           elevation: 8,
           backgroundColor: '#fff',
           borderRadius: 10,
-          width: HEIGHT / 6,
+          width: WIDTH * 0.8,
           height: HEIGHT / 6,
         }}
       >
-        {gift.imgSource !== '' ? (
-          <Image
-            source={{ uri: gift.imgSource }}
-            style={{
-              marginTop: 10,
-              height: '75%',
-              resizeMode: 'contain',
-            }}
-          />
-        ) : null}
+        <View style={{ flexDirection: 'row', flex: 1 }}>
+          {gift.imgSource !== '' && (
+            <Image
+              source={{ uri: gift.imgSource }}
+              style={{
+                marginTop: 10,
+
+                height: '75%',
+                width: '50%',
+                resizeMode: 'contain',
+              }}
+            />
+          )}
+          <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
+            {gift.name}
+          </Text>
+        </View>
         <View
           style={{
             backgroundColor: colors.primary,
@@ -43,9 +50,6 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
           }}
         />
       </View>
-      <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
-        {gift.name}
-      </Text>
     </View>
   )
 }

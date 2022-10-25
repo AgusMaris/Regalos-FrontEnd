@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {LogBox} from 'react-native' 
+import { LogBox } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from '../Screens/Home'
@@ -30,22 +30,21 @@ export default function RootNavigator({}: Props) {
   return (
     <NavigationContainer>
       <RootStack.Navigator>
-        {auth ? (
+        {!auth ? (
           <>
-            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
             <RootStack.Screen
-            name="GiftResults"
-            options={{
-            headerShown: false,
-            }}
-            component={GiftResultsScreen}
+              name="GiftResults"
+              options={{
+                headerShown: false,
+              }}
+              component={GiftResultsScreen}
             />
-          
-          <RootStack.Screen
-            name="Home"
-            component={(props) => <HomeScreen {...props} setAuth={toggleAuth} />
-          }
-          />
+            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
+
+            <RootStack.Screen
+              name="Home"
+              component={(props) => <HomeScreen {...props} setAuth={toggleAuth} />}
+            />
           </>
         ) : (
           <>
@@ -63,7 +62,6 @@ export default function RootNavigator({}: Props) {
               }}
               component={(props) => <RegisterScreen {...props} setAuth={toggleAuth} />}
             />
-
           </>
         )}
       </RootStack.Navigator>
