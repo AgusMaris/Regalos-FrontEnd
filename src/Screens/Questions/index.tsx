@@ -2,71 +2,23 @@ import { View, Text, TouchableOpacity, Animated } from 'react-native'
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { Container } from '../../Components/Container'
 import Background2 from '../../Components/Backgrounds/Background2'
-import Questions from './MockedQuestions.json'
-import { Question, Result } from '../../schemas/Question'
 import colors from '../../Assets/colors'
-import { v4 as uuidv4 } from 'uuid'
 import { useIsFocused } from '@react-navigation/native'
 import { QuestionsScreenProps } from './types'
-
-const questionsData = Questions.data
-
-type QuestionsState = {
-  questions: Question[]
-  currentQuestion: number
-  results: Result[]
-}
-
-type QuestionsActions =
-  | {
-      type: 'previousQuestion'
-    }
-  | {
-      type: 'addResult'
-      payload: {
-        answerId: string
-      }
-    }
-  | {
-      type: 'reset'
-    }
-
-const QuestionsReducer = (state: QuestionsState, action: QuestionsActions): QuestionsState => {
-  switch (action.type) {
-    case 'previousQuestion':
-      return {
-        ...state,
-        currentQuestion: state.currentQuestion - 1,
-      }
-    case 'addResult':
-      return {
-        ...state,
-        currentQuestion: state.currentQuestion + 1,
-        results: [...state.results, { ...action.payload, id: uuidv4() }],
-      }
-    case 'reset':
-      return {
-        ...state,
-        currentQuestion: 0,
-        results: [],
-      }
-    default:
-      return state
-  }
-}
+import useQuestions from './hooks/useQuestions'
+import { Answer } from '../../schemas/Question'
+import AnimatedLottieView from 'lottie-react-native'
 
 const QuestionsScreen = (props: QuestionsScreenProps) => {
   const fadeAnim = useRef(new Animated.Value(1)).current
-  const [state, dispatch] = useReducer(QuestionsReducer, {
-    questions: questionsData,
-    currentQuestion: 0,
-    results: [],
-  })
+
+  const { currentQuestion, questions, isLoading, results, addResult, resetQuestions } = useQuestions()
+
   const isFocused = useIsFocused()
 
   useEffect(() => {
     if (isFocused) {
-      dispatch({ type: 'reset' })
+      resetQuestions()
     }
   }, [isFocused])
 
@@ -88,19 +40,18 @@ const QuestionsScreen = (props: QuestionsScreenProps) => {
     })
   }
 
-  const handleNextQuestion = (answerId: string) => {
+  const handleNextQuestion = (answer: Answer) => {
     fadeOut(() => {
-      dispatch({ type: 'addResult', payload: { answerId } })
+      addResult(answer.type === 'affirmative' ? questions![currentQuestion].tags : [])
       fadeIn()
     })
   }
 
   useEffect(() => {
-    console.log(state)
-    if (state.currentQuestion === state.questions.length) {
-      props.navigation.navigate('GiftResults')
+    if (currentQuestion === questions!.length && questions!.length > 0) {
+      props.navigation.navigate('GiftResults', { score: results })
     }
-  }, [state.currentQuestion])
+  }, [currentQuestion])
 
   return (
     <Container>
@@ -119,32 +70,38 @@ const QuestionsScreen = (props: QuestionsScreenProps) => {
           Questions
         </Text>
         <View style={{ marginTop: 250 }}>
-          {state.questions.length > state.currentQuestion && (
-            <Animated.View style={{ opacity: fadeAnim }}>
-              <Text style={{ color: colors.primary, fontSize: 30, fontWeight: '900', marginBottom: 50 }}>
-                {state.questions[state.currentQuestion].title}
-              </Text>
-              <View>
-                {state.questions[state.currentQuestion].answers.map((answer) => (
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: colors.primary,
-                      borderTopEndRadius: 20,
-                      borderBottomStartRadius: 20,
-                      paddingHorizontal: 50,
-                      paddingVertical: 15,
-                      marginBottom: 75,
-                    }}
-                    onPress={() => handleNextQuestion(answer.id)}
-                    key={answer.id}
-                  >
-                    <Text style={{ color: colors.white, fontSize: 20, fontWeight: '700' }}>
-                      {answer.text}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </Animated.View>
+          {isLoading ? (
+            <View style={{ width: 250, height: 250, alignSelf: 'center' }}>
+              <AnimatedLottieView source={require('../../Assets/animations/loader.json')} autoPlay />
+            </View>
+          ) : (
+            questions!.length > currentQuestion && (
+              <Animated.View style={{ opacity: fadeAnim }}>
+                <Text style={{ color: colors.primary, fontSize: 30, fontWeight: '900', marginBottom: 50 }}>
+                  {questions![currentQuestion].title}
+                </Text>
+                <View>
+                  {questions![currentQuestion].answers.map((answer) => (
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: colors.primary,
+                        borderTopEndRadius: 20,
+                        borderBottomStartRadius: 20,
+                        paddingHorizontal: 50,
+                        paddingVertical: 15,
+                        marginBottom: 75,
+                      }}
+                      onPress={() => handleNextQuestion(answer)}
+                      key={answer.id}
+                    >
+                      <Text style={{ color: colors.white, fontSize: 20, fontWeight: '700' }}>
+                        {answer.text}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </Animated.View>
+            )
           )}
         </View>
       </View>
