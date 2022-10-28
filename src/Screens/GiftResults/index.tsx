@@ -8,6 +8,7 @@ import useGifts from './hooks/useGifts'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { GiftResultsScreenProps } from './types'
 import MysteriousBox from './components/MysteriousBox'
+import { Button } from '../../Components/Buttons'
 
 const GiftResultsScreen = ({ navigation, route: { params } }: GiftResultsScreenProps) => {
   const { gifts, getGifts } = useGifts(params.score)
@@ -40,6 +41,7 @@ const GiftResultsScreen = ({ navigation, route: { params } }: GiftResultsScreenP
         ) : (
           <>
             <FlatList
+             
               data={gifts.data}
               numColumns={1}
               keyExtractor={(item) => item.name}
