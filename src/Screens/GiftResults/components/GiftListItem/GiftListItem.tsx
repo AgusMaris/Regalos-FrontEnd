@@ -64,7 +64,7 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) =>
               resizeMode: 'contain',
             }} />
         )}
-        <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 20, marginTop: 10 }}>
+        <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 20, marginTop: 1 }}>
           {gift.name}
         </Text>
       </View>
