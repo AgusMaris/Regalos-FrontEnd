@@ -2,71 +2,21 @@ import { View, Text, TouchableOpacity, Animated } from 'react-native'
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { Container } from '../../Components/Container'
 import Background2 from '../../Components/Backgrounds/Background2'
-import Questions from './MockedQuestions.json'
-import { Question, Result } from '../../schemas/Question'
 import colors from '../../Assets/colors'
-import { v4 as uuidv4 } from 'uuid'
 import { useIsFocused } from '@react-navigation/native'
 import { QuestionsScreenProps } from './types'
-
-const questionsData = Questions.data
-
-type QuestionsState = {
-  questions: Question[]
-  currentQuestion: number
-  results: Result[]
-}
-
-type QuestionsActions =
-  | {
-      type: 'previousQuestion'
-    }
-  | {
-      type: 'addResult'
-      payload: {
-        answerId: string
-      }
-    }
-  | {
-      type: 'reset'
-    }
-
-const QuestionsReducer = (state: QuestionsState, action: QuestionsActions): QuestionsState => {
-  switch (action.type) {
-    case 'previousQuestion':
-      return {
-        ...state,
-        currentQuestion: state.currentQuestion - 1,
-      }
-    case 'addResult':
-      return {
-        ...state,
-        currentQuestion: state.currentQuestion + 1,
-        results: [...state.results, { ...action.payload, id: uuidv4() }],
-      }
-    case 'reset':
-      return {
-        ...state,
-        currentQuestion: 0,
-        results: [],
-      }
-    default:
-      return state
-  }
-}
+import useQuestions from './hooks/useQuestions'
 
 const QuestionsScreen = (props: QuestionsScreenProps) => {
   const fadeAnim = useRef(new Animated.Value(1)).current
-  const [state, dispatch] = useReducer(QuestionsReducer, {
-    questions: questionsData,
-    currentQuestion: 0,
-    results: [],
-  })
+
+  const { currentQuestion, questions, addResult, resetQuestions } = useQuestions()
+
   const isFocused = useIsFocused()
 
   useEffect(() => {
     if (isFocused) {
-      dispatch({ type: 'reset' })
+      resetQuestions()
     }
   }, [isFocused])
 
@@ -90,17 +40,16 @@ const QuestionsScreen = (props: QuestionsScreenProps) => {
 
   const handleNextQuestion = (answerId: string) => {
     fadeOut(() => {
-      dispatch({ type: 'addResult', payload: { answerId } })
+      addResult(answerId)
       fadeIn()
     })
   }
 
   useEffect(() => {
-    console.log(state)
-    if (state.currentQuestion === state.questions.length) {
+    if (currentQuestion === questions.length) {
       props.navigation.navigate('GiftResults')
     }
-  }, [state.currentQuestion])
+  }, [currentQuestion])
 
   return (
     <Container>
@@ -119,13 +68,13 @@ const QuestionsScreen = (props: QuestionsScreenProps) => {
           Questions
         </Text>
         <View style={{ marginTop: 250 }}>
-          {state.questions.length > state.currentQuestion && (
+          {questions.length > currentQuestion && (
             <Animated.View style={{ opacity: fadeAnim }}>
               <Text style={{ color: colors.primary, fontSize: 30, fontWeight: '900', marginBottom: 50 }}>
-                {state.questions[state.currentQuestion].title}
+                {questions[currentQuestion].title}
               </Text>
               <View>
-                {state.questions[state.currentQuestion].answers.map((answer) => (
+                {questions[currentQuestion].answers.map((answer) => (
                   <TouchableOpacity
                     style={{
                       backgroundColor: colors.primary,
