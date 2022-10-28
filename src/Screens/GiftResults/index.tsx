@@ -8,6 +8,7 @@ import useGifts from './hooks/useGifts'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { GiftResultsScreenProps } from './types'
 import MysteriousBox from './components/MysteriousBox'
+import { Button } from '../../Components/Buttons'
 
 const GiftResultsScreen = ({ navigation }: GiftResultsScreenProps) => {
   const { gifts, getGifts } = useGifts()
@@ -40,6 +41,7 @@ const GiftResultsScreen = ({ navigation }: GiftResultsScreenProps) => {
         ) : (
           <>
             <FlatList
+             
               data={gifts.data}
               numColumns={1}
               keyExtractor={(item) => item.name}
