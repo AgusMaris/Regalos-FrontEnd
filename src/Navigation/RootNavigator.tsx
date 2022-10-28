@@ -14,7 +14,9 @@ export type RootStackParamList = {
   Home: undefined
   Login: undefined
   Register: undefined
-  GiftResults: undefined
+  GiftResults: {
+    score: { [tag: string]: number }
+  }
   Questions: undefined
 }
 
@@ -32,6 +34,7 @@ export default function RootNavigator({}: Props) {
       <RootStack.Navigator>
         {!auth ? (
           <>
+            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
             <RootStack.Screen
               name="GiftResults"
               options={{
@@ -39,7 +42,6 @@ export default function RootNavigator({}: Props) {
               }}
               component={GiftResultsScreen}
             />
-            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
 
             <RootStack.Screen
               name="Home"

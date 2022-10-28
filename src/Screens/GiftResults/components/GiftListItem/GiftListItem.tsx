@@ -1,18 +1,17 @@
-import React from 'react'
-import { View, Text, Image, Dimensions, TouchableOpacity, Button, Linking } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, Image, Dimensions, TouchableOpacity, Linking } from 'react-native'
+import Ionicons from '@expo/vector-icons/Ionicons'
 import colors from '../../../../Assets/colors'
 import { GiftSchema } from '../../../../schemas/Gift'
+
 export interface GiftListItemInterface {
   gift: GiftSchema
 }
-import { useLinkTo } from '@react-navigation/native';
-
-
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
 const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
-
+  const [fav, setFav] = useState(false)
   return (
     <View style={{ alignItems: 'center', marginTop: 20 }}>
       <View
@@ -24,15 +23,28 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
           height: HEIGHT / 6,
         }}
       >
+        <View
+          style={{
+            backgroundColor: colors.primary,
+            position: 'absolute',
+            right: 0,
+            borderTopRightRadius: 10,
+            width: '10%',
+            height: 40,
+          }}
+        >
+          <TouchableOpacity onPress={() => setFav(!fav)}>
+            <Ionicons name="star" size={32} color={fav ? '#fa60e5' : '#fff'} />
+          </TouchableOpacity>
+        </View>
         <View style={{ flexDirection: 'row', flex: 1 }}>
           {gift.imgSource !== '' && (
             <Image
               source={{ uri: gift.imgSource }}
               style={{
-                marginTop: 10,
-
-                height: '75%',
-                width: '50%',
+                marginTop: -15,
+                height: '100%',
+                width: '35%',
                 resizeMode: 'contain',
               }}
             />
