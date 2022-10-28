@@ -1,16 +1,16 @@
 export type Question = {
   id: string
   title: string
+  tags: string[]
   answers: Answer[]
 }
 
 export type Answer = {
   id: string
   text: string
-  value: number
+  type: 'affirmative' | 'negative'
 }
 
-export type Result = {
-  id: string
-  answerId: string
+export type Results = {
+  [tagName: string]: number
 }

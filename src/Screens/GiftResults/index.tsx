@@ -9,8 +9,8 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { GiftResultsScreenProps } from './types'
 import MysteriousBox from './components/MysteriousBox'
 
-const GiftResultsScreen = ({ navigation }: GiftResultsScreenProps) => {
-  const { gifts, getGifts } = useGifts()
+const GiftResultsScreen = ({ navigation, route: { params } }: GiftResultsScreenProps) => {
+  const { gifts, getGifts } = useGifts(params.score)
   const onBackPress = () => {
     navigation.goBack()
   }

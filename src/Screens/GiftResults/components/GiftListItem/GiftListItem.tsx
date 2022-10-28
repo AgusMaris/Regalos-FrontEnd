@@ -27,14 +27,21 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
               source={{ uri: gift.imgSource }}
               style={{
                 marginTop: 10,
-
                 height: '75%',
                 width: '50%',
                 resizeMode: 'contain',
               }}
             />
           )}
-          <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
+          <Text
+            style={{
+              color: colors.darkGrey,
+              fontWeight: 'bold',
+              fontSize: 18,
+              marginTop: 10,
+              flex: 1,
+            }}
+          >
             {gift.name}
           </Text>
         </View>
