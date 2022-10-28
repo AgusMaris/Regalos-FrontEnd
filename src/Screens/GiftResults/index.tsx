@@ -1,33 +1,43 @@
-import React from 'react'
-import { View, Text, FlatList, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
-import Background1 from '../../Components/Backgrounds/Background1'
-import { Container } from '../../Components/Container'
-import { GiftListItem } from './components/GiftListItem'
-import { GiftListSkeleton } from './components/GiftListSkeleton'
-import useGifts from './hooks/useGifts'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import { GiftResultsScreenProps } from './types'
-import MysteriousBox from './components/MysteriousBox'
-import { Button } from '../../Components/Buttons'
+import React from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import Background1 from "../../Components/Backgrounds/Background1";
+import { Container } from "../../Components/Container";
+import { GiftListItem } from "./components/GiftListItem";
+import { GiftListSkeleton } from "./components/GiftListSkeleton";
+import useGifts from "./hooks/useGifts";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { GiftResultsScreenProps } from "./types";
+import MysteriousBox from "./components/MysteriousBox";
+import { Button } from "../../Components/Buttons";
 
 const GiftResultsScreen = ({ navigation }: GiftResultsScreenProps) => {
-  const { gifts, getGifts } = useGifts()
+  const { gifts, getGifts } = useGifts();
   const onBackPress = () => {
-    navigation.goBack()
-  }
+    navigation.goBack();
+  };
   return (
     <Container>
       <Background1 />
-      <TouchableOpacity style={{ position: 'absolute', left: 15, top: 40 }} onPress={onBackPress}>
+      <TouchableOpacity
+        style={{ position: "absolute", left: 15, top: 40 }}
+        onPress={onBackPress}
+      >
         <Ionicons name="arrow-back-sharp" size={32} color="#fff" />
       </TouchableOpacity>
       <Text
         style={{
-          position: 'absolute',
+          position: "absolute",
           right: 25,
-          color: '#fff',
+          color: "#fff",
           fontSize: 32,
-          fontWeight: 'bold',
+          fontWeight: "bold",
           top: 40,
         }}
       >
@@ -41,7 +51,20 @@ const GiftResultsScreen = ({ navigation }: GiftResultsScreenProps) => {
         ) : (
           <>
             <FlatList
-             
+              ListFooterComponent={
+                <View>
+                  <Text
+                    style={{
+                      color: "#fff",
+                      fontSize: 18,
+                      fontWeight: "700",
+                      padding: 10,
+                      textAlign: "center",
+                    }}
+                     ></Text>
+                  <Button text="Ver mas resultados" />
+                </View>
+              }
               data={gifts.data}
               numColumns={1}
               keyExtractor={(item) => item.name}
@@ -53,7 +76,7 @@ const GiftResultsScreen = ({ navigation }: GiftResultsScreenProps) => {
         )}
       </View>
     </Container>
-  )
-}
+  );
+};
 
-export default GiftResultsScreen
+export default GiftResultsScreen;
