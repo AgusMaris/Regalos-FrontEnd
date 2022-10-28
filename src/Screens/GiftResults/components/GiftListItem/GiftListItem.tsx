@@ -49,7 +49,7 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) =>
           <Ionicons
             name="star"
             size={32}
-          color={fav ? "#f7a902": "#fff"} />
+          color={fav ? "#fa60e5": "#fff"} />
         </TouchableOpacity>
 
       </View>
