@@ -9,6 +9,7 @@ import GiftResultsScreen from '../Screens/GiftResults'
 import QuestionsScreen from '../Screens/Questions'
 import { useAuth } from '../Components/Providers/AuthProvider'
 import colors from '../Assets/colors'
+import FeedbackScreen from '../Screens/Feedback'
 
 type Props = {}
 export type RootStackParamList = {
@@ -19,6 +20,7 @@ export type RootStackParamList = {
     score: { [tag: string]: number }
   }
   Questions: undefined
+  Feedback: undefined
 }
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
@@ -48,6 +50,7 @@ export default function RootNavigator({}: Props) {
               component={HomeScreen}
             />
             <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
+            <RootStack.Screen name="Feedback" component={FeedbackScreen} options={{ headerShown: false }} />
             <RootStack.Screen
               name="GiftResults"
               options={{
