@@ -7,7 +7,7 @@ import MockedGifts from './MockedGifts.json'
 const gifts = MockedGifts.data
 
 const URLS = {
-  local: 'http://10.0.2.2:3000',
+  local: 'http://192.168.0.8:3000',
   prod: 'https://gifts-api.herokuapp.com',
 }
 
@@ -24,12 +24,19 @@ const claimedUserIds: Record<string, string[]> = {}
 
 const Api = {
   Gifts: {
-    getMysteriousBoxGift: async (userId: string): Promise<typeof gifts[number]> => {
-      const possibleGifts = gifts.filter((gift) => !claimedUserIds[userId]?.includes(gift.id))
-      const randomGift = possibleGifts[Math.floor(Math.random() * possibleGifts.length)]
-      claimedUserIds[userId] = [...(claimedUserIds[userId] || []), randomGift.id]
-      await delay(2000)
-      return randomGift
+    getMysteriousBoxGift: async (
+      score: { [tag: string]: number },
+      userId: string
+    ): Promise<typeof gifts[number]> => {
+      const res = await apiClient.post('/mysteriousBox', {
+        tags: Object.keys(score),
+        userId,
+      })
+      // const possibleGifts = gifts.filter((gift) => !claimedUserIds[userId]?.includes(gift.id))
+      // const randomGift = possibleGifts[Math.floor(Math.random() * possibleGifts.length)]
+      // claimedUserIds[userId] = [...(claimedUserIds[userId] || []), randomGift.id]
+      // await delay(2000)
+      return res.data
     },
     buyGift: async (giftId: string, userId: string): Promise<void> => {
       try {
@@ -43,6 +50,7 @@ const Api = {
       console.log('requesting to ', API_URL + '/findrecom')
       try {
         const data = {
+          userId,
           score: Object.keys(score).map((tag) => ({
             nombre: tag,
             puntaje: score[tag],

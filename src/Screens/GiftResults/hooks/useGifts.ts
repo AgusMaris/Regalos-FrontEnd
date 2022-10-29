@@ -3,6 +3,7 @@ import { delay } from '../../../utils/functions'
 import { AsyncState } from '../../../utils/types'
 import Gifts from '../../../Api/MockedGifts.json'
 import Api from '../../../Api'
+import { useAuth } from '../../../Components/Providers/AuthProvider'
 const giftsData = Gifts.data
 
 export default function useGifts(score: { [tag: string]: number }) {
@@ -11,10 +12,11 @@ export default function useGifts(score: { [tag: string]: number }) {
     data: [],
     error: null,
   })
+  const { user } = useAuth()
 
   const getGifts = async () => {
     setGifts({ data: [], isLoading: true, error: null })
-    Api.Gifts.getGifts('123', score).then((gifts) => {
+    Api.Gifts.getGifts(user!.id, score).then((gifts) => {
       if (gifts) {
         console.log(gifts)
         setGifts({

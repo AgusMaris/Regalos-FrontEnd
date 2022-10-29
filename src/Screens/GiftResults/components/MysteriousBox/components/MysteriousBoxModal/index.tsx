@@ -9,6 +9,9 @@ import { GiftSchema } from '../../../../../../schemas/Gift'
 import { delay } from '../../../../../../utils/functions'
 import MysteriousBoxSummary from './components/MysteriousBoxSummary'
 import MysteriousBoxResult from './components/MysteriousBoxResult'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { RootStackParamList } from '../../../../../../Navigation/RootNavigator'
+import { useAuth } from '../../../../../../Components/Providers/AuthProvider'
 
 type Props = {
   isOpen: boolean
@@ -18,6 +21,10 @@ type Props = {
 const MysteriousBoxModal = ({ isOpen, onRequestClose }: Props) => {
   const [showGiftAnimation, setShowGiftAnimation] = useState(false)
 
+  const { params } = useRoute<RouteProp<RootStackParamList, 'GiftResults'>>()
+
+  const { user } = useAuth()
+
   const [gift, setGift] = useState<GiftSchema | null>(null)
 
   const [giftLoading, setGiftLoading] = useState(false)
@@ -25,7 +32,7 @@ const MysteriousBoxModal = ({ isOpen, onRequestClose }: Props) => {
   const buyMysteriousGift = async () => {
     setGiftLoading(true)
     setShowGiftAnimation(true)
-    const gift = await Api.Gifts.getMysteriousBoxGift('1')
+    const gift = await Api.Gifts.getMysteriousBoxGift(params.score, user!.id)
     setGift(gift)
     setGiftLoading(false)
   }

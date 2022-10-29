@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
+import AuthProvider from './src/Components/Providers/AuthProvider'
 import RootNavigator from './src/Navigation/RootNavigator'
 
 if (__DEV__ && typeof global.crypto !== 'object') {
@@ -9,7 +10,11 @@ if (__DEV__ && typeof global.crypto !== 'object') {
 }
 
 export default function App() {
-  return <RootNavigator />
+  return (
+    <AuthProvider>
+      <RootNavigator />
+    </AuthProvider>
+  )
 }
 
 const styles = StyleSheet.create({

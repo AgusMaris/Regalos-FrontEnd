@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
-import { View, Text, Image, Dimensions, TouchableOpacity, Linking } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { View, Text, Image, Dimensions, TouchableOpacity, Linking, AppState, Alert } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import colors from '../../../../Assets/colors'
 import { GiftSchema } from '../../../../schemas/Gift'
+import Api from '../../../../Api'
+import { useAuth } from '../../../../Components/Providers/AuthProvider'
 
 export interface GiftListItemInterface {
   gift: GiftSchema
@@ -12,6 +14,42 @@ const HEIGHT = Dimensions.get('window').height
 
 const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
   const [fav, setFav] = useState(false)
+  const appState = useRef(AppState.currentState)
+  const [storeOpened, setStoreOpened] = useState(false)
+  const { user } = useAuth()
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active' && storeOpened) {
+        console.log('App has come to the foreground!')
+        setStoreOpened(false)
+        Alert.alert('Realizaste la compra del regalo?', '', [
+          {
+            text: 'No',
+            onPress: () => console.log('No Pressed'),
+          },
+          {
+            text: 'Si',
+            onPress: () => Api.Gifts.buyGift(gift.id as string, user!.id),
+          },
+        ])
+      }
+
+      appState.current = nextAppState
+
+      console.log('AppState', appState.current)
+    })
+
+    return () => {
+      subscription.remove()
+    }
+  }, [storeOpened])
+
+  const handleGoToStore = (giftName: string) => {
+    console.log(giftName)
+    setStoreOpened(true)
+    Linking.openURL('https://listado.mercadolibre.com.ar/' + giftName.split(' ').join('-'))
+  }
   return (
     <View style={{ alignItems: 'center', marginTop: 20 }}>
       <View
@@ -49,13 +87,26 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
               }}
             />
           )}
-          <View style={{flex:1}}> 
-              <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
-                {gift.name}
-              </Text>
-               <TouchableOpacity onPress={() =>Linking.openURL("https://listado.mercadolibre.com.ar/"+gift.name)} style={{marginTop:20,alignSelf:'stretch',marginBottom:20,justifyContent:'flex-end',alignItems:'flex-end'}}>
-                    <Image source={require('../GiftListItem/mercadolibre.png')} style={{width:50,height:40,right:10}}></Image>
-                </TouchableOpacity></View>
+          <View style={{ flex: 1 }}>
+            <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
+              {gift.name}
+            </Text>
+            <TouchableOpacity
+              onPress={() => handleGoToStore(gift.name)}
+              style={{
+                marginTop: 20,
+                alignSelf: 'stretch',
+                marginBottom: 20,
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+              }}
+            >
+              <Image
+                source={require('../GiftListItem/mercadolibre.png')}
+                style={{ width: 50, height: 40, right: 10 }}
+              ></Image>
+            </TouchableOpacity>
+          </View>
         </View>
         <View
           style={{
@@ -69,10 +120,8 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
           }}
         />
       </View>
-
     </View>
   )
 }
 
 export default GiftListItem
-
