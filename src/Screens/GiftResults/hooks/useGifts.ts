@@ -17,7 +17,7 @@ export default function useGifts(score: { [tag: string]: number }) {
 
        
         
-  const cambiarLimite = () => {setLimit(limit + 3)}
+  const cambiarLimites = () => {setLimit(limit + 3)}
 
   const getGifts = async () => {
     setGifts({ data: [], isLoading: true, error: null })
@@ -46,5 +46,5 @@ export default function useGifts(score: { [tag: string]: number }) {
   }, [])
   const arrayLimitado = gifts.data.slice(0, limit)
 
-  return { gifts:{isLoading:gifts.isLoading,error:gifts.error,data:arrayLimitado}, getGifts, cambiarLimite }
+  return { gifts:{isLoading:gifts.isLoading,error:gifts.error,data:arrayLimitado}, getGifts, cambiarLimites }
 }

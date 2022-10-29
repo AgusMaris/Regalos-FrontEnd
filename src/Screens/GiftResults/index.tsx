@@ -18,7 +18,7 @@ import MysteriousBox from "./components/MysteriousBox";
 import { Button } from "../../Components/Buttons";
 
 const GiftResultsScreen = ({ navigation, route: { params } }: GiftResultsScreenProps) => {
-  const { gifts, getGifts, cambiarLimite } = useGifts(params.score);
+  const { gifts, getGifts, cambiarLimites } = useGifts(params.score);
   const onBackPress = () => {
     navigation.goBack();
   };
@@ -63,7 +63,7 @@ const GiftResultsScreen = ({ navigation, route: { params } }: GiftResultsScreenP
                     }}
                   ></Text>
                   <Button 
-                  onPress={cambiarLimite}
+                  onPress={cambiarLimites}
                   text="Ver mas resultados"
                   />
                  </View>
