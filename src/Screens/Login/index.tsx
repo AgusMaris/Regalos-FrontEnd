@@ -4,28 +4,28 @@ import { Card, TextInput, Button } from 'react-native-paper'
 import { loginStyle } from './style'
 import { emailValidator, passwordValidator } from '../../utils/login'
 import colors from '../../Assets/colors'
+import createClient from '../../services/Auth'
+import { useAuth } from '../../Components/Providers/AuthProvider'
 
 type Props = {
   setAuth: () => void
 }
-const LoginScreen = ({ setAuth, navigation }: Props) => {
-  const [email, setEmail] = useState({ value: '', error: '' })
-  const [password, setPassword] = useState({ value: '', error: '' })
-  const _onLoginPressed = () => {
-    const emailError = emailValidator(email.value)
-    const passwordError = passwordValidator(password.value)
 
-    if (emailError || passwordError) {
-      setEmail({ ...email, error: emailError })
-      setPassword({ ...password, error: passwordError })
-      return
-    }
-    if (email.value == 'TEST@hotmail.com' && password.value == '1234') {
-      console.log(email.value)
-      console.log(password.value)
-      setAuth()
+const LoginScreen = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const { login } = useAuth()
+
+  const _onLoginPressed = async (e) => {
+    e.preventDefault()
+    try {
+      login(email, password)
+      console.log(email, password)
+    } catch (error) {
+      console.error(error)
     }
   }
+
   const _onRegisterPressed = () => {
     navigation.navigate('Register')
   }
@@ -37,9 +37,9 @@ const LoginScreen = ({ setAuth, navigation }: Props) => {
           <TextInput
             label="Email"
             returnKeyType="next"
-            value={email.value}
-            onChangeText={(text) => setEmail({ value: text, error: '' })}
-            error={!!email.error}
+            onChangeText={(value) => {
+              setEmail(value)
+            }}
             autoCapitalize="none"
             textContentType="emailAddress"
             keyboardType="email-address"
@@ -49,9 +49,9 @@ const LoginScreen = ({ setAuth, navigation }: Props) => {
           <TextInput
             label="Contraseña"
             returnKeyType="done"
-            value={password.value}
-            onChangeText={(text) => setPassword({ value: text, error: '' })}
-            error={!!password.error}
+            onChangeText={(value) => {
+              setPassword(value)
+            }}
             secureTextEntry
             style={loginStyle.input}
             activeUnderlineColor={colors.primary}

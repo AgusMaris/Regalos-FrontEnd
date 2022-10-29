@@ -1,36 +1,113 @@
-import React from 'react'
-import { View, Text, Image, Dimensions } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { View, Text, Image, Dimensions, TouchableOpacity, Linking, AppState, Alert } from 'react-native'
+import Ionicons from '@expo/vector-icons/Ionicons'
 import colors from '../../../../Assets/colors'
 import { GiftSchema } from '../../../../schemas/Gift'
+import Api from '../../../../Api'
+import { useAuth } from '../../../../Components/Providers/AuthProvider'
+
 export interface GiftListItemInterface {
   gift: GiftSchema
 }
-
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
 const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
+  const [fav, setFav] = useState(false)
+  const appState = useRef(AppState.currentState)
+  const [storeOpened, setStoreOpened] = useState(false)
+  const { user } = useAuth()
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active' && storeOpened) {
+        console.log('App has come to the foreground!')
+        setStoreOpened(false)
+        Alert.alert('Realizaste la compra del regalo?', '', [
+          {
+            text: 'No',
+            onPress: () => console.log('No Pressed'),
+          },
+          {
+            text: 'Si',
+            onPress: () => Api.Gifts.buyGift(gift.id as string, user!.id),
+          },
+        ])
+      }
+
+      appState.current = nextAppState
+
+      console.log('AppState', appState.current)
+    })
+
+    return () => {
+      subscription.remove()
+    }
+  }, [storeOpened])
+
+  const handleGoToStore = (giftName: string) => {
+    console.log(giftName)
+    setStoreOpened(true)
+    Linking.openURL('https://listado.mercadolibre.com.ar/' + giftName.split(' ').join('-'))
+  }
   return (
-    <View style={{ flexBasis: '50%', alignItems: 'center', marginTop: 20 }}>
+    <View style={{ alignItems: 'center', marginTop: 20 }}>
       <View
         style={{
           elevation: 8,
           backgroundColor: '#fff',
           borderRadius: 10,
-          width: HEIGHT / 6,
+          width: WIDTH * 0.8,
           height: HEIGHT / 6,
         }}
       >
-        {gift.imgSource !== '' ? (
-          <Image
-            source={{ uri: gift.imgSource }}
-            style={{
-              marginTop: 10,
-              height: '75%',
-              resizeMode: 'contain',
-            }}
-          />
-        ) : null}
+        <View
+          style={{
+            backgroundColor: colors.primary,
+            position: 'absolute',
+            right: 0,
+            borderTopRightRadius: 10,
+            width: '10%',
+            height: 40,
+          }}
+        >
+          <TouchableOpacity onPress={() => setFav(!fav)}>
+            <Ionicons name="star" size={32} color={fav ? '#fa60e5' : '#fff'} />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: 'row', flex: 1 }}>
+          {gift.imgSource !== '' && (
+            <Image
+              source={{ uri: gift.imgSource }}
+              style={{
+                marginTop: -15,
+                height: '100%',
+                width: '35%',
+                resizeMode: 'contain',
+              }}
+            />
+          )}
+          <View style={{ flex: 1 }}>
+            <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
+              {gift.name}
+            </Text>
+            <TouchableOpacity
+              onPress={() => handleGoToStore(gift.name)}
+              style={{
+                marginTop: 20,
+                alignSelf: 'stretch',
+                marginBottom: 20,
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+              }}
+            >
+              <Image
+                source={require('../GiftListItem/mercadolibre.png')}
+                style={{ width: 50, height: 40, right: 10 }}
+              ></Image>
+            </TouchableOpacity>
+          </View>
+        </View>
         <View
           style={{
             backgroundColor: colors.primary,
@@ -43,9 +120,6 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
           }}
         />
       </View>
-      <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
-        {gift.name}
-      </Text>
     </View>
   )
 }

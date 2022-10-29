@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
 import Background1 from '../../Components/Backgrounds/Background1'
 import { Container } from '../../Components/Container'
 import { GiftListItem } from './components/GiftListItem'
@@ -7,9 +7,11 @@ import { GiftListSkeleton } from './components/GiftListSkeleton'
 import useGifts from './hooks/useGifts'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { GiftResultsScreenProps } from './types'
+import MysteriousBox from './components/MysteriousBox'
+import { Button } from '../../Components/Buttons'
 
-const GiftResultsScreen = ({ navigation }: GiftResultsScreenProps) => {
-  const { gifts, getGifts } = useGifts()
+const GiftResultsScreen = ({ navigation, route: { params } }: GiftResultsScreenProps) => {
+  const { gifts, getGifts } = useGifts(params.score)
   const onBackPress = () => {
     navigation.goBack()
   }
@@ -37,13 +39,17 @@ const GiftResultsScreen = ({ navigation }: GiftResultsScreenProps) => {
             <GiftListSkeleton />
           </ScrollView>
         ) : (
-          <FlatList
-            data={gifts.data}
-            numColumns={2}
-            keyExtractor={(item) => item.name}
-            renderItem={({ item }) => <GiftListItem gift={item} />}
-            showsVerticalScrollIndicator={false}
-          />
+          <>
+            <FlatList
+             
+              data={gifts.data}
+              numColumns={1}
+              keyExtractor={(item) => item.name}
+              ListHeaderComponent={<MysteriousBox />}
+              renderItem={({ item }) => <GiftListItem gift={item} />}
+              showsVerticalScrollIndicator={false}
+            />
+          </>
         )}
       </View>
     </Container>
