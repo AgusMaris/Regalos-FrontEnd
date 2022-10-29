@@ -7,6 +7,7 @@ import LoginScreen from '../Screens/Login'
 import RegisterScreen from '../Screens/Register'
 import GiftResultsScreen from '../Screens/GiftResults'
 import QuestionsScreen from '../Screens/Questions'
+import { useAuth } from '../Components/Providers/AuthProvider'
 
 type Props = {}
 
@@ -24,15 +25,12 @@ const RootStack = createNativeStackNavigator<RootStackParamList>()
 
 LogBox.ignoreAllLogs()
 export default function RootNavigator({}: Props) {
-  const [auth, setAuth] = useState(false)
+  const { user } = useAuth()
 
-  const toggleAuth = () => {
-    setAuth(!auth)
-  }
   return (
     <NavigationContainer>
       <RootStack.Navigator>
-        {!auth ? (
+        {user ? (
           <>
             <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
             <RootStack.Screen
@@ -43,10 +41,7 @@ export default function RootNavigator({}: Props) {
               component={GiftResultsScreen}
             />
 
-            <RootStack.Screen
-              name="Home"
-              component={(props) => <HomeScreen {...props} setAuth={toggleAuth} />}
-            />
+            <RootStack.Screen name="Home" component={HomeScreen} />
           </>
         ) : (
           <>
@@ -55,7 +50,7 @@ export default function RootNavigator({}: Props) {
               options={{
                 headerShown: false,
               }}
-              component={(props) => <LoginScreen {...props} setAuth={toggleAuth} />}
+              component={LoginScreen}
             />
             <RootStack.Screen
               name="Register"
