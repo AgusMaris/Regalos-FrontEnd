@@ -70,7 +70,13 @@ const Api = {
       try {
         const res = await apiClient.get('/getrandomgift')
         console.log(res.data)
-        return res.data
+        return res.data.map((value:any)=>
+          ({
+              imgSource:value.image,
+              name:value.name,
+              id:value.id,         
+          }) as GiftSchema
+        )
 
       } catch (error) {
           console.log(error)

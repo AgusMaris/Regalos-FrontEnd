@@ -45,7 +45,7 @@ export default function RootNavigator({}: Props) {
                   fontSize: 30
                 },
               }}
-              component={(props) => <HomeScreen {...props} setAuth={toggleAuth} />}
+              component={HomeScreen}
             />
             <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
             <RootStack.Screen
@@ -55,8 +55,6 @@ export default function RootNavigator({}: Props) {
               }}
               component={GiftResultsScreen}
             />
-
-            <RootStack.Screen name="Home" component={HomeScreen} />
           </>
         ) : (
           <>

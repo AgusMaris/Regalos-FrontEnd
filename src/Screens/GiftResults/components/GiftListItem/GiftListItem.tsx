@@ -47,7 +47,6 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
   }, [storeOpened])
 
   const handleGoToStore = (giftName: string) => {
-    console.log(giftName)
     setStoreOpened(true)
     Linking.openURL('https://listado.mercadolibre.com.ar/' + giftName.split(' ').join('-'))
   }
@@ -67,7 +66,7 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
             backgroundColor: colors.primary,
             position: 'absolute',
             right: 0,
-            borderTopRightRadius: 10,
+            borderTopRightRadius:10,
             width: '10%',
             height: 40,
           }}
@@ -81,30 +80,34 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
             <Image
               source={{ uri: gift.imgSource }}
               style={{
-                marginTop: -15,
-                height: '100%',
+                marginTop:20,
+                height: '70%',
                 width: '35%',
                 resizeMode: 'contain',
               }}
             />
           )}
           <View style={{ flex: 1 }}>
-            <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
+            <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10,marginRight:50 }}>
               {gift.name}
             </Text>
             <TouchableOpacity
               onPress={() => handleGoToStore(gift.name)}
               style={{
+                backgroundColor:'red',
+                width:50,
+                height:40,
                 marginTop: 20,
-                alignSelf: 'stretch',
+                alignSelf: 'flex-end',
                 marginBottom: 20,
                 justifyContent: 'flex-end',
                 alignItems: 'flex-end',
+  
               }}
             >
               <Image
                 source={require('../GiftListItem/mercadolibre.png')}
-                style={{ width: 50, height: 40, right: 10 }}
+                style={{ width: 50, height: 40, marginTop:60}}
               ></Image>
             </TouchableOpacity>
           </View>
