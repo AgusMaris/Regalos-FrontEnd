@@ -100,10 +100,11 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
             <TouchableOpacity
               onPress={() => handleGoToStore(gift.name)}
               style={{
+                position:'absolute',
                 backgroundColor:'red',
                 width:50,
                 height:40,
-                marginTop: 20,
+                marginTop: 80,
                 alignSelf: 'flex-end',
                 marginBottom: 20,
                 justifyContent: 'flex-end',
