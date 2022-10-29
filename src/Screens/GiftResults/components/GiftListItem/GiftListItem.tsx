@@ -13,6 +13,7 @@ const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
 const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
+  console.log(gift)
   const [fav, setFav] = useState(false)
   const appState = useRef(AppState.currentState)
   const [storeOpened, setStoreOpened] = useState(false)

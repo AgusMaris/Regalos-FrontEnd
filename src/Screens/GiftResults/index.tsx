@@ -11,7 +11,7 @@ import MysteriousBox from './components/MysteriousBox'
 import { Button } from '../../Components/Buttons'
 
 const GiftResultsScreen = ({ navigation, route: { params } }: GiftResultsScreenProps) => {
-  const { gifts, getGifts } = useGifts(params.score)
+  const { gifts, getGifts } = Object.entries(params.score).length != 0 ? useGifts(params.score) :useGifts({}) 
   const onBackPress = () => {
     navigation.goBack()
   }

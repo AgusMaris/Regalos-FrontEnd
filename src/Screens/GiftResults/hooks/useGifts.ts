@@ -14,7 +14,19 @@ export default function useGifts(score: { [tag: string]: number }) {
   })
   const { user } = useAuth()
 
+  const getRandomGift = async ()=>{
+     Api.Gifts.getRandomGift().then((gift) => {
+      if (gift) {
+      setGifts({
+        isLoading: false,
+        data: gift,
+        error: null,
+      }) }
+  })
+  }
+
   const getGifts = async () => {
+    console.log("tamos aca")
     setGifts({ data: [], isLoading: true, error: null })
     Api.Gifts.getGifts(user!.id, score).then((gifts) => {
       if (gifts) {
@@ -29,7 +41,8 @@ export default function useGifts(score: { [tag: string]: number }) {
   }
 
   useEffect(() => {
-    getGifts()
+    console.log("EL SCORE DE USE EFFECT ES: " +Object.entries(score).length)
+    Object.entries(score).length != 0 ? getGifts() : getRandomGift()
   }, [])
 
   return { gifts, getGifts }
