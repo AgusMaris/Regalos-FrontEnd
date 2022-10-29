@@ -5,6 +5,8 @@ import colors from '../../../../Assets/colors'
 import { GiftSchema } from '../../../../schemas/Gift'
 import Api from '../../../../Api'
 import { useAuth } from '../../../../Components/Providers/AuthProvider'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { RootStackParamList } from '../../../../Navigation/RootNavigator'
 
 export interface GiftListItemInterface {
   gift: GiftSchema
@@ -17,6 +19,7 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
   const appState = useRef(AppState.currentState)
   const [storeOpened, setStoreOpened] = useState(false)
   const { user } = useAuth()
+  const navigation = useNavigation<NavigationProp<RootStackParamList, 'GiftResults'>>()
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
@@ -30,7 +33,10 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
           },
           {
             text: 'Si',
-            onPress: () => Api.Gifts.buyGift(gift.id as string, user!.id),
+            onPress: () => {
+              Api.Gifts.buyGift(gift.id as string, user!.id)
+              navigation.navigate('Feedback')
+            },
           },
         ])
       }
