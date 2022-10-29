@@ -32,11 +32,11 @@ const Api = {
         tags: Object.keys(score),
         userId,
       })
-      const possibleGifts = gifts.filter((gift) => !claimedUserIds[userId]?.includes(gift.id))
-      const randomGift = possibleGifts[Math.floor(Math.random() * possibleGifts.length)]
-      claimedUserIds[userId] = [...(claimedUserIds[userId] || []), randomGift.id]
-      await delay(2000)
-      return randomGift
+      // const possibleGifts = gifts.filter((gift) => !claimedUserIds[userId]?.includes(gift.id))
+      // const randomGift = possibleGifts[Math.floor(Math.random() * possibleGifts.length)]
+      // claimedUserIds[userId] = [...(claimedUserIds[userId] || []), randomGift.id]
+      // await delay(2000)
+      return res.data
     },
     buyGift: async (giftId: string, userId: string): Promise<void> => {
       try {
