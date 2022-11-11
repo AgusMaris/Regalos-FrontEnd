@@ -20,23 +20,42 @@ type Props = {
 
 const BeneficiaryScreen = () => {
   return (
-    <View
-      style={{
-        justifyContent: "center",
-        alignSelf: "center",
-      }}
-    >
-      <TouchableOpacity style={{ flexDirection: "row" }}>
-        <Text
-          style={{
-            fontSize: 30,
-          }}
-        >
-          Agregar Beneficiario
-        </Text>
+    <View>
+      <View
+        style={{
+          alignSelf: "center",
+        }}
+      >
+        <TouchableOpacity style={{ flexDirection: "row" }}>
+          <Text
+            style={{
+              fontSize: 30,
+            }}
+          >
+            Agregar Beneficiario
+          </Text>
 
-        <AntDesign name="adduser" size={35} />
-      </TouchableOpacity>
+          <AntDesign name="adduser" size={35} />
+        </TouchableOpacity>
+      </View>
+
+      <View
+        style={{
+          alignSelf: "center",
+        }}
+      >
+        <TouchableOpacity style={{ flexDirection: "row" }}>
+          <Text
+            style={{
+              fontSize: 30,
+            }}
+          >
+            Lista de Beneficiarios
+          </Text>
+
+          <AntDesign name="contacts" size={35} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
