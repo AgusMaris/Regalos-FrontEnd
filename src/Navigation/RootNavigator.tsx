@@ -10,6 +10,7 @@ import QuestionsScreen from '../Screens/Questions'
 import { useAuth } from '../Components/Providers/AuthProvider'
 import colors from '../Assets/colors'
 import FeedbackScreen from '../Screens/Feedback'
+import SalesFeedbackScreen from '../Screens/SalesFeedback'
 
 type Props = {}
 export type RootStackParamList = {
@@ -61,6 +62,7 @@ export default function RootNavigator({}: Props) {
           </>
         ) : (
           <>
+          <RootStack.Screen name="SalesFeedback" component={SalesFeedbackScreen} options={{ headerShown: false }} />
             <RootStack.Screen
               name="Login"
               options={{
