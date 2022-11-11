@@ -122,6 +122,16 @@ const Api = {
       }
     },
   },
+  Stats: {
+    getTagsWithCount: async (userId: string): Promise<{ [tag: string]: number } | null> => {
+      await delay(2000)
+      return {
+        Deportes: 4,
+        Tecnología: 1,
+        Cocina: 1,
+      }
+    },
+  },
 }
 
 export default Api

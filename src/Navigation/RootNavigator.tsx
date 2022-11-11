@@ -10,6 +10,7 @@ import QuestionsScreen from '../Screens/Questions'
 import { useAuth } from '../Components/Providers/AuthProvider'
 import colors from '../Assets/colors'
 import FeedbackScreen from '../Screens/Feedback'
+import StatsScreen from '../Screens/Stats'
 
 type Props = {}
 export type RootStackParamList = {
@@ -21,6 +22,7 @@ export type RootStackParamList = {
   }
   Questions: undefined
   Feedback: undefined
+  Stats: undefined
 }
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
@@ -31,12 +33,13 @@ export default function RootNavigator({}: Props) {
   return (
     <NavigationContainer>
       <RootStack.Navigator>
-        {user ? (
+        {!user ? (
           <>
-          <RootStack.Screen
+            <RootStack.Screen name="Stats" component={StatsScreen} options={{ headerShown: false }} />
+            <RootStack.Screen
               name="Home"
               options={{
-                headerTitleAlign:'center',
+                headerTitleAlign: 'center',
                 title: 'Bienvenido',
                 headerStyle: {
                   backgroundColor: colors.primary,
@@ -44,7 +47,7 @@ export default function RootNavigator({}: Props) {
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                   fontWeight: 'bold',
-                  fontSize: 30
+                  fontSize: 30,
                 },
               }}
               component={HomeScreen}
