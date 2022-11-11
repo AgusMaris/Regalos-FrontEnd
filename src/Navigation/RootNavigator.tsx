@@ -11,12 +11,15 @@ import { useAuth } from "../Components/Providers/AuthProvider";
 import colors from "../Assets/colors";
 import FeedbackScreen from "../Screens/Feedback";
 import AddBeneficiaryScreen from "../Screens/AddBeneficiary";
+import BeneficiaryScreen from "../Screens/Beneficiary";
 
 type Props = {};
 export type RootStackParamList = {
+  Beneficiary: undefined;
   Home: undefined;
   Login: undefined;
   Register: undefined;
+  AddBeneficiary: undefined;
   GiftResults: {
     score: { [tag: string]: number };
   };
@@ -35,12 +38,22 @@ export default function RootNavigator({}: Props) {
         {user ? (
           <>
             <RootStack.Screen
-              name="AddBeneficiary"
+              name="Beneficiary"
+              component={BeneficiaryScreen}
               options={{
-                headerShown: false,
+                headerTitleAlign: "center",
+                title: "Bienvenido",
+                headerStyle: {
+                  backgroundColor: colors.primary,
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                  fontSize: 30,
+                },
               }}
-              component={AddBeneficiaryScreen}
             />
+
             <RootStack.Screen
               name="Home"
               options={{
@@ -57,6 +70,7 @@ export default function RootNavigator({}: Props) {
               }}
               component={HomeScreen}
             />
+
             <RootStack.Screen
               name="Questions"
               component={QuestionsScreen}
@@ -73,6 +87,11 @@ export default function RootNavigator({}: Props) {
                 headerShown: false,
               }}
               component={GiftResultsScreen}
+            />
+            <RootStack.Screen
+              name="AddBeneficiary"
+              options={{ headerShown: false }}
+              component={AddBeneficiaryScreen}
             />
           </>
         ) : (
