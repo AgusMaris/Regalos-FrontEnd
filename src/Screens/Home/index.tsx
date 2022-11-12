@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { HomeScreenProps } from "./types";
 import colors from "../../Assets/colors";
-import { white } from "react-native-paper/lib/typescript/styles/colors";
+import { red400, white } from "react-native-paper/lib/typescript/styles/colors";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Container } from "../../Components/Container";
 
@@ -27,40 +27,36 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
   };
   return (
     <View style={{ flex: 1 }}>
-      <View
+      <Text
         style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
+          fontSize: 30,
+          fontWeight: "bold",
+          color: colors.primary,
+          marginBottom: 10,
+          position: "absolute",
+          alignSelf: "center",
+          marginTop: 20,
         }}
       >
-        <Text
-          style={{
-            fontSize: 30,
-            fontWeight: "bold",
-            color: colors.primary,
-            marginBottom: 10,
+        Busquemos tu Regalo!😉
+      </Text>
 
-            alignSelf: "center",
-            marginTop: 20,
-          }}
-        >
-          Busquemos el Regalo de ... !😉
-        </Text>
-        <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("AddBeneficiary")}
-          >
-            <AntDesign name="adduser" size={35} />
-          </TouchableOpacity>
-        </View>
+      <View
+        style={{
+          flexDirection: "column-reverse",
+          alignItems: "flex-end",
+        }}
+      >
+        <TouchableOpacity onPress={() => navigation.navigate("AddBeneficiary")}>
+          <AntDesign name="adduser" size={35} />
+        </TouchableOpacity>
       </View>
 
       <View
         style={{
           justifyContent: "center",
           alignItems: "center",
-          height: HEIGHT / 2.5,
+          height: HEIGHT / 1.8,
         }}
       >
         <TouchableOpacity onPress={() => navigation.navigate("Questions")}>

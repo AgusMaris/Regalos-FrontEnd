@@ -12,6 +12,7 @@ import colors from "../Assets/colors";
 import FeedbackScreen from "../Screens/Feedback";
 import AddBeneficiaryScreen from "../Screens/AddBeneficiary";
 import BeneficiaryScreen from "../Screens/Beneficiary";
+import ListBeneficiaryScreen from "../Screens/ListBeneficiary";
 
 type Props = {};
 export type RootStackParamList = {
@@ -20,6 +21,7 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   AddBeneficiary: undefined;
+  ListBeneficiary: undefined;
   GiftResults: {
     score: { [tag: string]: number };
   };
@@ -96,6 +98,12 @@ export default function RootNavigator({}: Props) {
           </>
         ) : (
           <>
+            <RootStack.Screen
+              name="ListBeneficiary"
+              component={ListBeneficiaryScreen}
+              options={{ headerShown: false }}
+            />
+
             <RootStack.Screen
               name="Login"
               options={{
