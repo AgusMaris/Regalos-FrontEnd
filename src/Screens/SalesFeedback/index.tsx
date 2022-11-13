@@ -13,57 +13,6 @@ import { Container } from "../../Components/Container";
 import { salesFedStyle } from "./style";
 import axios from "axios";
 
-const DATA = [
-	{
-		id: 1,
-		name: "pelota dasd a asd",
-		goodfeedback: "46",
-		badfeedback: "1",
-	},
-	{
-		id: 2,
-		name: "papel",
-		goodfeedback: "29",
-		badfeedback: "0",
-	},
-	{
-		id: 3,
-		name: "mouse",
-		goodfeedback: "20",
-		badfeedback: "2",
-	},
-	{
-		id: 4,
-		name: "teclado",
-		goodfeedback: "22",
-		badfeedback: "9",
-	},
-	{
-		id: 5,
-		name: "telefono",
-		goodfeedback: "12",
-		badfeedback: "0",
-	},
-	{
-		id: 6,
-		name: "perfume",
-		goodfeedback: "35",
-		badfeedback: "3",
-	},
-	{
-		id: 7,
-		name: "monitor",
-		goodfeedback: "28",
-		badfeedback: "17",
-	},
-	{
-		id: 8,
-		name: "teclado",
-		goodfeedback: "5",
-		badfeedback: "23",
-	},
-];
-
 const Item = ({ name, goodfeedback, badfeedback }) => (
 	<TouchableOpacity style={salesFedStyle.listItem}>
 		<Text style={salesFedStyle.listName}>{name}</Text>
@@ -119,8 +68,7 @@ const SalesFeedbackScreen = () => {
 				},
 			});
 			setData(data);
-			console.log(data);
-			console.log("Estas en axios!");
+			console.log("Estas en axios!", data);
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -128,12 +76,11 @@ const SalesFeedbackScreen = () => {
 		}
 	};
 
-
 	const renderItem = ({ item }) => (
 		<Item
 			name={item.name}
-			goodfeedback={item.goodfeedback}
-			badfeedback={item.badfeedback}
+			goodfeedback={item.feedback.positive}
+			badfeedback={item.feedback.negative}
 		/>
 	);
 
@@ -141,7 +88,7 @@ const SalesFeedbackScreen = () => {
 		<Container>
 			<Background1 />
 			<View style={{ paddingTop: 110, flex: 1 }}>
-				<Text style={salesFedStyle.headerText}>Listado de productos</Text>
+				<Text style={salesFedStyle.headerText}>Listado de tus productos</Text>
 				<SafeAreaView>
 					<FlatList
 						data={data}

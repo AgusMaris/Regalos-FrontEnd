@@ -20,8 +20,10 @@ export type RootStackParamList = {
   GiftResults: {
     score: { [tag: string]: number }
   }
+ 
   Questions: undefined
   Feedback: undefined
+  SalesFeedback: undefined
 }
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
@@ -50,6 +52,7 @@ export default function RootNavigator({}: Props) {
               }}
               component={HomeScreen}
             />
+            <RootStack.Screen name="SalesFeedback" component={SalesFeedbackScreen} options={{ headerShown: false }} />
             <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
             <RootStack.Screen name="Feedback" component={FeedbackScreen} options={{ headerShown: false }} />
             <RootStack.Screen
@@ -62,7 +65,6 @@ export default function RootNavigator({}: Props) {
           </>
         ) : (
           <>
-          <RootStack.Screen name="SalesFeedback" component={SalesFeedbackScreen} options={{ headerShown: false }} />
             <RootStack.Screen
               name="Login"
               options={{

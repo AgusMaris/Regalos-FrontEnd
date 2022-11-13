@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 import colors from '../../Assets/colors'
 
 export const salesFedStyle = StyleSheet.create({
-  headerText: { textAlign: "center", fontWeight: "bold", fontSize: 24, paddingBottom: 20},
+  headerText: { textAlign: "center", fontWeight: "bold", fontSize: 28, paddingTop: 20, paddingBottom: 20, color: colors.primary,},
   listItem: {
     borderRadius: 10,
     backgroundColor: "#ddd",
@@ -15,9 +15,8 @@ export const salesFedStyle = StyleSheet.create({
     alignItems: "flex-start",
   },
   listName: {
-    fontSize: 20,
+    fontSize: 18,
     flex: 0.6,
-
     alignItems: "flex-start",
     padding: 10,
   },
