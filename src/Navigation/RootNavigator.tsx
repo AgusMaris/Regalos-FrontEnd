@@ -73,7 +73,7 @@ export default function RootNavigator({}: Props) {
               options={{
                 headerShown: false,
               }}
-              component={(props) => <RegisterScreen {...props} setAuth={toggleAuth} />}
+              component={RegisterScreen}
             />
           </>
         )}

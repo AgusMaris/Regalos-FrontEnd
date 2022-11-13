@@ -11,7 +11,7 @@ const URLS = {
   prod: 'https://regalos-backend-production.up.railway.app/',
 }
 
-const API_URL = URLS.prod
+const API_URL = URLS.local
 
 const apiClient = axios.create({
   baseURL: API_URL,
