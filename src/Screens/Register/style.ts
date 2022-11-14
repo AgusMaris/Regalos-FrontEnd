@@ -43,4 +43,11 @@ export const registerStyle = StyleSheet.create({
     height: 50,
     backgroundColor: '#C0D1CD',
   },
+  cardButton2: {
+    backgroundColor:"white",
+    margin: 2,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 10,
+  },
 })
