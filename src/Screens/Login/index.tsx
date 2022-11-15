@@ -11,7 +11,7 @@ type Props = {
   setAuth: () => void
 }
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}: Props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { login } = useAuth()

@@ -26,14 +26,14 @@
         "backgroundColor": "#FFFFFF"
       },
       "softwareKeyboardLayoutMode": "pan",
-      "package": "com.agusmaris.RegalosApp"
+      "package": "com.matias31.RegalosApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "638070c8-0ed1-4dfb-8b57-171f68381524"
+        "projectId": "5f399500-0b89-45b8-9bb3-83ebfd75ceb5"
       }
     }
   }

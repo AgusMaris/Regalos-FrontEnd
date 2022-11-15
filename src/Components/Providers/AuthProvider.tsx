@@ -48,6 +48,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       console.log('user logged in', user)
       setUser(user)
     }
+    console.log(res)
   }
   return (
     <AuthContext.Provider
