@@ -13,48 +13,44 @@ import { Container } from "../../Components/Container";
 import { salesFedStyle } from "./style";
 import axios from "axios";
 
-const DATA = [
-  {
-    id: 1,
-    name: "Nicolas",
-    apellido: "Vidal",
-  },
-  {
-    id: 2,
-    name: "Nicas",
-    apellido: "Vdal",
-  },
-];
-
-const Item = ({ name, apellido }) => (
-  <TouchableOpacity style={salesFedStyle.listItem}>
-    <Text style={salesFedStyle.listName}>{name}</Text>
-    <Text style={salesFedStyle.listName}>{apellido}</Text>
-  </TouchableOpacity>
-);
+const API = "http://192.168.88.6:3000/getbeneficiary";
 
 const ListBeneficiaryScreen = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const renderItem = ({ item }) => (
-    <Item name={item.name} apellido={item.apellido} />
+  const [beneficiary, setBeneficiary] = React.useState(null);
+
+  React.useEffect(() => {
+    axios.get(API).then((response) => {
+      setBeneficiary(response.data);
+      console.log(response.data);
+    });
+  }, []);
+
+  const BeneficiaryListItem = ({ beneficiary }) => (
+    <TouchableOpacity style={salesFedStyle.listItem}>
+      <Text style={salesFedStyle.listName}>{beneficiary.name}</Text>
+      <Text style={salesFedStyle.listName}>{beneficiary.apellido}</Text>
+    </TouchableOpacity>
   );
 
   return (
     <Container>
       <Background1 />
       <View style={{ paddingTop: 110, flex: 1 }}>
-        <Text style={salesFedStyle.headerText}>Listado de productos</Text>
+        <Text style={salesFedStyle.headerText}>Lista de Beneficiarios</Text>
         <SafeAreaView>
           <FlatList
-            data={DATA}
-            keyExtractor={({ id }, index) => id}
-            renderItem={renderItem}
+            data={beneficiary}
+            renderItem={({ item }) => (
+              <BeneficiaryListItem beneficiary={item} />
+            )}
           />
         </SafeAreaView>
       </View>
     </Container>
   );
 };
+
 export default ListBeneficiaryScreen;
