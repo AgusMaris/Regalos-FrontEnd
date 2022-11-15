@@ -99,8 +99,8 @@ export default function RootNavigator({}: Props) {
         ) : (
           <>
             <RootStack.Screen
-              name="ListBeneficiary"
-              component={ListBeneficiaryScreen}
+              name="AddBeneficiary"
+              component={AddBeneficiaryScreen}
               options={{ headerShown: false }}
             />
 
