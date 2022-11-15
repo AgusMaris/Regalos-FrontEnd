@@ -40,23 +40,6 @@ export default function RootNavigator({}: Props) {
         {user ? (
           <>
             <RootStack.Screen
-              name="Beneficiary"
-              component={BeneficiaryScreen}
-              options={{
-                headerTitleAlign: "center",
-                title: "Bienvenido",
-                headerStyle: {
-                  backgroundColor: colors.primary,
-                },
-                headerTintColor: "#fff",
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                  fontSize: 30,
-                },
-              }}
-            />
-
-            <RootStack.Screen
               name="Home"
               options={{
                 headerTitleAlign: "center",
@@ -95,15 +78,30 @@ export default function RootNavigator({}: Props) {
               options={{ headerShown: false }}
               component={AddBeneficiaryScreen}
             />
+            <RootStack.Screen
+              name="ListBeneficiary"
+              options={{ headerShown: false }}
+              component={ListBeneficiaryScreen}
+            />
           </>
         ) : (
           <>
             <RootStack.Screen
-              name="AddBeneficiary"
-              component={AddBeneficiaryScreen}
-              options={{ headerShown: false }}
+              name="Beneficiary"
+              component={BeneficiaryScreen}
+              options={{
+                headerTitleAlign: "center",
+                title: "Bienvenido",
+                headerStyle: {
+                  backgroundColor: colors.primary,
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                  fontSize: 30,
+                },
+              }}
             />
-
             <RootStack.Screen
               name="Login"
               options={{

@@ -26,6 +26,7 @@ const AddBeneficiaryScreen = () => {
       })
       .then((response) => {
         setPost(response.data);
+        navigation.navigate("Home");
       });
   }
 

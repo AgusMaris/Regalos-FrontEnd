@@ -19,17 +19,37 @@ type Props = {
 };
 
 const BeneficiaryScreen = () => {
+  const _onAddBeneficiaryPressed = () => {
+    navigation.navigate("AddBeneficiary");
+  };
+
+  const _onListBeneficiaryPressed = () => {
+    navigation.navigate("ListBeneficiary");
+  };
+
   return (
     <View>
       <View
         style={{
           alignSelf: "center",
+          justifyContent: "center",
+          alignItems: "center",
+          height: HEIGHT / 1.9,
         }}
       >
-        <TouchableOpacity style={{ flexDirection: "row" }}>
+        <TouchableOpacity
+          onPress={_onAddBeneficiaryPressed}
+          style={{ flexDirection: "row" }}
+        >
           <Text
             style={{
+              textAlign: "center",
               fontSize: 30,
+              alignSelf: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlignVertical: "center",
+              alignContent: "center",
             }}
           >
             Agregar Beneficiario
@@ -42,12 +62,23 @@ const BeneficiaryScreen = () => {
       <View
         style={{
           alignSelf: "center",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <TouchableOpacity style={{ flexDirection: "row" }}>
+        <TouchableOpacity
+          onPress={_onListBeneficiaryPressed}
+          style={{ flexDirection: "row" }}
+        >
           <Text
             style={{
+              textAlign: "center",
               fontSize: 30,
+              alignSelf: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlignVertical: "center",
+              alignContent: "center",
             }}
           >
             Lista de Beneficiarios
