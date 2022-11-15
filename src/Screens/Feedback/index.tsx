@@ -11,14 +11,12 @@ import { useAuth } from "../../Components/Providers/AuthProvider";
 
 const url = "http://192.168.1.2:3000/uploadfeedback";
 //const url = "http://localhost:3000/uploadfeedback";
-const id_regalo = 42;
-const id_usuario = 1;
 
 type Props = {} & NativeStackScreenProps<RootStackParamList, "Feedback">;
 
 const FeedbackScreen = ({ navigation, route }: Props) => {
 	const { user } = useAuth();
-  const { id_regalo } = route;
+	const { id_regalo } = route.params;
 	const handleLike = async () => {
 		try {
 			const resp = await axios.post(url, {
@@ -26,25 +24,25 @@ const FeedbackScreen = ({ navigation, route }: Props) => {
 				id_usuario: user.id,
 				calificacion: "s",
 			});
-      console.log(user.id)
 			console.log("Estas en axios!", resp.data);
 		} catch (error) {
 			console.error(error);
 		}
+    navigation.navigate('Home')
 	};
 
 	const handleDislike = async () => {
 		try {
 			const resp = await axios.post(url, {
 				id_regalo: id_regalo,
-				id_usuario: user,
+				id_usuario: user.id,
 				calificacion: "n",
 			});
 			console.log("Estas en axios!", resp.data);
 		} catch (error) {
 			console.error(error);
 		}
-		//navigation.goBack();
+		navigation.navigate('Home')
 	};
 
 	return (

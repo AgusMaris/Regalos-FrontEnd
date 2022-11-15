@@ -20,9 +20,12 @@ export type RootStackParamList = {
   GiftResults: {
     score: { [tag: string]: number }
   }
- 
   Questions: undefined
-  Feedback: undefined
+  Feedback: {
+    id_regalo: string 
+  }
+  Stats: undefined
+  UploadProduct: undefined
   SalesFeedback: undefined
 }
 

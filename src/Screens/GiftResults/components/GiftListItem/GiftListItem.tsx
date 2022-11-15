@@ -36,7 +36,7 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
             text: 'Si',
             onPress: () => {
               Api.Gifts.buyGift(gift.id as string, user!.id)
-              navigation.navigate('Feedback')
+              navigation.navigate('Feedback', { id_regalo: gift.id!})
             },
           },
         ])
