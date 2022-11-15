@@ -7,11 +7,11 @@ import MockedGifts from './MockedGifts.json'
 const gifts = MockedGifts.data
 
 const URLS = {
-  local: 'http://192.168.0.10:3000',
+  local: 'http://192.168.0.3:3000',
   prod: 'https://regalos-backend-production.up.railway.app/',
 }
 
-const API_URL = URLS.prod
+const API_URL = URLS.local
 
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -122,14 +122,25 @@ const Api = {
       }
     },
   },
+
   Stats: {
     getTagsWithCount: async (userId: string): Promise<{ [tag: string]: number } | null> => {
       await delay(2000)
-      return {
-        Deportes: 4,
-        Tecnología: 1,
-        Cocina: 1,
+      const { data } = await apiClient.get<
+        {
+          idetiqueta: number
+          etiqueta: string
+          count: number
+        }[]
+      >('/getBoughtGiftsTags')
+
+      const tags: Record<string, number> = {}
+
+      for (const tag of data) {
+        tags[tag.etiqueta] = tag.count
       }
+
+      return tags
     },
   },
 }

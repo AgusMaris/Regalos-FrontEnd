@@ -9,15 +9,16 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { GiftResultsScreenProps } from './types'
 import MysteriousBox from './components/MysteriousBox'
 import { Button } from '../../Components/Buttons'
+import Background2 from '../../Components/Backgrounds/Background2'
 
 const GiftResultsScreen = ({ navigation, route: { params } }: GiftResultsScreenProps) => {
-  const { gifts, getGifts } = Object.entries(params.score).length != 0 ? useGifts(params.score) :useGifts({}) 
+  const { gifts, getGifts } = Object.entries(params.score).length != 0 ? useGifts(params.score) : useGifts({})
   const onBackPress = () => {
     navigation.goBack()
   }
   return (
     <Container>
-      <Background1 />
+      <Background2 />
       <TouchableOpacity style={{ position: 'absolute', left: 15, top: 40 }} onPress={onBackPress}>
         <Ionicons name="arrow-back-sharp" size={32} color="#fff" />
       </TouchableOpacity>
@@ -41,12 +42,11 @@ const GiftResultsScreen = ({ navigation, route: { params } }: GiftResultsScreenP
         ) : (
           <>
             <FlatList
-             
               data={gifts.data}
+              renderItem={({ item }) => <GiftListItem gift={item} />}
               numColumns={1}
               keyExtractor={(item) => item.name}
               ListHeaderComponent={<MysteriousBox />}
-              renderItem={({ item }) => <GiftListItem gift={item} />}
               showsVerticalScrollIndicator={false}
             />
           </>

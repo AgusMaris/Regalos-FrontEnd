@@ -5,6 +5,7 @@ type User = {
   id: string
   name: string
   email: string
+  isAdmin?: boolean
 }
 
 type AuthContextType = {
@@ -18,11 +19,22 @@ type AuthProviderProps = {
   children: React.ReactNode
 }
 
+const userIsAdmin = (email: string, password: string) => email === 'admin@admin.com' && password === 'admin'
+
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
   const login = async (email: string, password: string) => {
+    if (userIsAdmin(email, password)) {
+      setUser({
+        email,
+        id: 'admin',
+        name: 'admin',
+        isAdmin: true,
+      })
+      return
+    }
     const res = await createClient.auth.signIn({
       email: email,
       password: password,
