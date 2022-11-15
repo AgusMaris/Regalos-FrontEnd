@@ -10,6 +10,7 @@ import QuestionsScreen from '../Screens/Questions'
 import { useAuth } from '../Components/Providers/AuthProvider'
 import colors from '../Assets/colors'
 import FeedbackScreen from '../Screens/Feedback'
+import StatsScreen from '../Screens/Stats'
 import UploadProductScreen from '../Screens/UploadProduct'
 
 type Props = {}
@@ -22,6 +23,8 @@ export type RootStackParamList = {
   }
   Questions: undefined
   Feedback: undefined
+  Stats: undefined
+  UploadProduct: undefined
 }
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
@@ -34,33 +37,46 @@ export default function RootNavigator({}: Props) {
       <RootStack.Navigator>
         {user ? (
           <>
-          <RootStack.Screen
-              name="Home"
-              options={{
-                headerTitleAlign:'center',
-                title: 'Bienvenido',
-                headerStyle: {
-                  backgroundColor: colors.primary,
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                  fontSize: 30
-                },
-              }}
-              component={HomeScreen}
-            />
-            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
-            <RootStack.Screen name="Feedback" component={FeedbackScreen} options={{ headerShown: false }} />
-            <RootStack.Screen
-              name="GiftResults"
-              options={{
-                headerShown: false,
-              }}
-              component={GiftResultsScreen}
-            />
-            <RootStack.Screen name="UploadProduct" component={UploadProductScreen} />
-
+            {user.isAdmin ? (
+              <RootStack.Screen name="Stats" component={StatsScreen} options={{ headerShown: false }} />
+            ) : (
+              <>
+                <RootStack.Screen
+                  name="Home"
+                  options={{
+                    headerTitleAlign: 'center',
+                    title: 'Bienvenido',
+                    headerStyle: {
+                      backgroundColor: colors.primary,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                      fontWeight: 'bold',
+                      fontSize: 30,
+                    },
+                  }}
+                  component={HomeScreen}
+                />
+                <RootStack.Screen
+                  name="Questions"
+                  component={QuestionsScreen}
+                  options={{ headerShown: false }}
+                />
+                <RootStack.Screen
+                  name="Feedback"
+                  component={FeedbackScreen}
+                  options={{ headerShown: false }}
+                />
+                <RootStack.Screen
+                  name="GiftResults"
+                  options={{
+                    headerShown: false,
+                  }}
+                  component={GiftResultsScreen}
+                />
+                <RootStack.Screen name="UploadProduct" component={UploadProductScreen} />
+              </>
+            )}
           </>
         ) : (
           <>
