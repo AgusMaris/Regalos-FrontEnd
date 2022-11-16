@@ -1,55 +1,45 @@
-import {
-  View,
-  Text,
-  Button,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-} from "react-native";
+import { View, Text, Button, TouchableOpacity, Image, Dimensions } from 'react-native'
 
-import { BeneficiaryStyle } from "./style";
-import colors from "../../Assets/colors";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import { BeneficiaryStyle } from './style'
+import colors from '../../Assets/colors'
+import AntDesign from '@expo/vector-icons/AntDesign'
 
-const HEIGHT = Dimensions.get("window").height;
-const WIDTH = Dimensions.get("window").width;
+const HEIGHT = Dimensions.get('window').height
+const WIDTH = Dimensions.get('window').width
 
 type Props = {
-  setAuth: () => void;
-};
+  setAuth: () => void
+}
 
-const BeneficiaryScreen = () => {
+const BeneficiaryScreen = ({ navigation }) => {
   const _onAddBeneficiaryPressed = () => {
-    navigation.navigate("AddBeneficiary");
-  };
+    navigation.navigate('AddBeneficiary')
+  }
 
   const _onListBeneficiaryPressed = () => {
-    navigation.navigate("ListBeneficiary");
-  };
+    navigation.navigate('ListBeneficiary')
+  }
 
   return (
     <View>
       <View
         style={{
-          alignSelf: "center",
-          justifyContent: "center",
-          alignItems: "center",
+          alignSelf: 'center',
+          justifyContent: 'center',
+          alignItems: 'center',
           height: HEIGHT / 1.9,
         }}
       >
-        <TouchableOpacity
-          onPress={_onAddBeneficiaryPressed}
-          style={{ flexDirection: "row" }}
-        >
+        <TouchableOpacity onPress={_onAddBeneficiaryPressed} style={{ flexDirection: 'row' }}>
           <Text
             style={{
-              textAlign: "center",
+              textAlign: 'center',
               fontSize: 30,
-              alignSelf: "center",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlignVertical: "center",
-              alignContent: "center",
+              alignSelf: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlignVertical: 'center',
+              alignContent: 'center',
             }}
           >
             Agregar Beneficiario
@@ -61,24 +51,21 @@ const BeneficiaryScreen = () => {
 
       <View
         style={{
-          alignSelf: "center",
-          justifyContent: "center",
-          alignItems: "center",
+          alignSelf: 'center',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <TouchableOpacity
-          onPress={_onListBeneficiaryPressed}
-          style={{ flexDirection: "row" }}
-        >
+        <TouchableOpacity onPress={_onListBeneficiaryPressed} style={{ flexDirection: 'row' }}>
           <Text
             style={{
-              textAlign: "center",
+              textAlign: 'center',
               fontSize: 30,
-              alignSelf: "center",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlignVertical: "center",
-              alignContent: "center",
+              alignSelf: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlignVertical: 'center',
+              alignContent: 'center',
             }}
           >
             Lista de Beneficiarios
@@ -88,7 +75,7 @@ const BeneficiaryScreen = () => {
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default BeneficiaryScreen;
+export default BeneficiaryScreen

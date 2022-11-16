@@ -6,34 +6,42 @@ import {
   View,
   Text,
   ActivityIndicator,
-} from "react-native";
-import React, { useEffect, useState } from "react";
-import Background1 from "../../Components/Backgrounds/Background1";
-import { Container } from "../../Components/Container";
-import { salesFedStyle } from "./style";
-import axios from "axios";
+} from 'react-native'
+import React, { useEffect, useState } from 'react'
+import Background1 from '../../Components/Backgrounds/Background1'
+import { Container } from '../../Components/Container'
+import { salesFedStyle } from './style'
+import axios from 'axios'
+import { useAuth } from '../../Components/Providers/AuthProvider'
+import { Beneficiary } from '../../schemas/Beneficiary'
+import Api from '../../Api'
 
-const API = "http://192.168.0.102:3000/getbeneficiary";
+const API = 'http://192.168.0.3:3000/getbeneficiary'
 
-const ListBeneficiaryScreen = () => {
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-
-  const [beneficiary, setBeneficiary] = React.useState(null);
+const ListBeneficiaryScreen = ({ navigation }) => {
+  const [beneficiary, setBeneficiary] = React.useState<Beneficiary[]>([])
+  const { chooseBeneficiary } = useAuth()
 
   React.useEffect(() => {
-    axios.get(API).then((response) => {
-      setBeneficiary(response.data);
-      console.log(response.data);
-    });
-  }, []);
+    Api.Beneficiaries.getBeneficiaries().then((response) => {
+      if (response) {
+        setBeneficiary(response)
+        console.log(response)
+      }
+    })
+  }, [])
 
-  const BeneficiaryListItem = ({ beneficiary }) => (
-    <TouchableOpacity style={salesFedStyle.listItem}>
+  const handleChooseBeneficiary = (item: Beneficiary) => {
+    chooseBeneficiary(item)
+    navigation.navigate('Home')
+  }
+
+  const BeneficiaryListItem = ({ beneficiary }: { beneficiary: Beneficiary }) => (
+    <TouchableOpacity style={salesFedStyle.listItem} onPress={() => handleChooseBeneficiary(beneficiary)}>
       <Text style={salesFedStyle.listName}>{beneficiary.name}</Text>
       <Text style={salesFedStyle.listName}>{beneficiary.apellido}</Text>
     </TouchableOpacity>
-  );
+  )
 
   return (
     <Container>
@@ -43,14 +51,12 @@ const ListBeneficiaryScreen = () => {
         <SafeAreaView>
           <FlatList
             data={beneficiary}
-            renderItem={({ item }) => (
-              <BeneficiaryListItem beneficiary={item} />
-            )}
+            renderItem={({ item }) => <BeneficiaryListItem beneficiary={item} />}
           />
         </SafeAreaView>
       </View>
     </Container>
-  );
-};
+  )
+}
 
-export default ListBeneficiaryScreen;
+export default ListBeneficiaryScreen

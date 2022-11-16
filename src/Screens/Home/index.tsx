@@ -1,72 +1,62 @@
-import {
-  View,
-  Text,
-  Button,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-} from "react-native";
-import React from "react";
-import { HomeScreenProps } from "./types";
-import colors from "../../Assets/colors";
-import { white } from "react-native-paper/lib/typescript/styles/colors";
+import { View, Text, Button, TouchableOpacity, Image, Dimensions } from 'react-native'
+import React from 'react'
+import { HomeScreenProps } from './types'
+import colors from '../../Assets/colors'
+import { white } from 'react-native-paper/lib/typescript/styles/colors'
+import { useAuth } from '../../Components/Providers/AuthProvider'
 
-const HEIGHT = Dimensions.get("window").height;
-const WIDTH = Dimensions.get("window").width;
+const HEIGHT = Dimensions.get('window').height
+const WIDTH = Dimensions.get('window').width
 
 type Props = {
-  setAuth: () => void;
-};
+  setAuth: () => void
+}
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
-  const results = {};
+  const results = {}
+  const { beneficiary } = useAuth()
   const findRandom = () => {
-    navigation.navigate("GiftResults", { score: results });
-  };
+    navigation.navigate('GiftResults', { score: results })
+  }
+  console.log(beneficiary)
   return (
     <View style={{ flex: 1 }}>
       <Text
         style={{
           fontSize: 30,
-          fontWeight: "bold",
+          fontWeight: 'bold',
           color: colors.primary,
           marginBottom: 10,
-          position: "absolute",
-          alignSelf: "center",
+          position: 'absolute',
+          alignSelf: 'center',
           marginTop: 20,
         }}
       >
-        Busquemos tu Regalo!
+        Busquemos el regalo de {beneficiary?.name}
       </Text>
       <View
         style={{
-          justifyContent: "center",
-          alignItems: "center",
+          justifyContent: 'center',
+          alignItems: 'center',
           height: HEIGHT / 1.8,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate("Questions")}>
-          <Image
-            source={require("./utils/questionmode.png")}
-            style={{ width: 150, height: 150 }}
-          ></Image>
+        <TouchableOpacity onPress={() => navigation.navigate('Questions')}>
+          <Image source={require('./utils/questionmode.png')} style={{ width: 150, height: 150 }}></Image>
         </TouchableOpacity>
       </View>
 
-      <View style={{ alignItems: "center" }}>
+      <View style={{ alignItems: 'center' }}>
         <TouchableOpacity
           onPress={() => {
-            findRandom();
+            findRandom()
           }}
         >
-          <Image
-            source={require("./utils/fastmode.png")}
-            style={{ width: 150, height: 150 }}
-          ></Image>
+          <Image source={require('./utils/fastmode.png')} style={{ width: 150, height: 150 }}></Image>
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default HomeScreen;
+export default HomeScreen

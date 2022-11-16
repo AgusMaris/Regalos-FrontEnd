@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react'
+import { Beneficiary } from '../../schemas/Beneficiary'
 import createClient from '../../services/Auth'
 
 type User = {
@@ -12,6 +13,8 @@ type AuthContextType = {
   login: (email: string, password: string) => Promise<void>
   logout?: () => void
   register?: (email: string, password: string) => Promise<void>
+  chooseBeneficiary: (beneficiary: Beneficiary) => void
+  beneficiary: Beneficiary | null
 }
 
 type AuthProviderProps = {
@@ -22,6 +25,7 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
+  const [chosenBeneficiary, setChosenBeneficiary] = useState<Beneficiary | null>(null)
   const login = async (email: string, password: string) => {
     const res = await createClient.auth.signIn({
       email: email,
@@ -37,11 +41,18 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setUser(user)
     }
   }
+
+  const chooseBeneficiary = (beneficiary: Beneficiary) => {
+    setChosenBeneficiary(beneficiary)
+  }
+
   return (
     <AuthContext.Provider
       value={{
         login,
         user,
+        beneficiary: chosenBeneficiary,
+        chooseBeneficiary,
       }}
     >
       {children}
