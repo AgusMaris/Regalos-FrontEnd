@@ -6,7 +6,7 @@ export const salesFedStyle = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 24,
-    paddingBottom: 20,
+    color:'white'
   },
   listItem: {
     borderRadius: 10,

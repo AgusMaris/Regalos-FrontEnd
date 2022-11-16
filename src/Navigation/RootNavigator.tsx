@@ -59,16 +59,7 @@ export default function RootNavigator({}: Props) {
                   name="Beneficiary"
                   component={BeneficiaryScreen}
                   options={{
-                    headerTitleAlign: 'center',
-                    title: 'Bienvenido',
-                    headerStyle: {
-                      backgroundColor: colors.primary,
-                    },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                      fontWeight: 'bold',
-                      fontSize: 30,
-                    },
+                      headerShown:false
                   }}
                 />
                 <RootStack.Screen
@@ -109,7 +100,11 @@ export default function RootNavigator({}: Props) {
                   }}
                   component={GiftResultsScreen}
                 />
-            <RootStack.Screen name="UploadProduct" options={{headerShown: false}} component={UploadProductScreen} />
+                <RootStack.Screen 
+                  name="UploadProduct"
+                  options={{headerShown: false}} 
+                  component={UploadProductScreen} 
+                />
                 <RootStack.Screen
                   name="AddBeneficiary"
                   options={{ headerShown: false }}

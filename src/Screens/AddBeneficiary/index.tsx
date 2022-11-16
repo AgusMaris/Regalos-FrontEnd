@@ -1,4 +1,4 @@
-import { SafeAreaView, View } from 'react-native'
+import { SafeAreaView, View,TouchableOpacity } from 'react-native'
 import { Card, TextInput, Button } from 'react-native-paper'
 import { addBeneficiaryStyle } from './style'
 import colors from '../../Assets/colors'

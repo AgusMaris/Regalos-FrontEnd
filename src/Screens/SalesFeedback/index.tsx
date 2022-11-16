@@ -14,6 +14,8 @@ import { salesFedStyle } from './style'
 import axios from 'axios'
 import { useAuth } from '../../Components/Providers/AuthProvider'
 import Api from '../../Api'
+import Ionicons from '@expo/vector-icons/Ionicons'
+
 
 const Item = ({ name, goodfeedback, badfeedback }) => (
   <TouchableOpacity style={salesFedStyle.listItem}>
@@ -53,8 +55,12 @@ const Item = ({ name, goodfeedback, badfeedback }) => (
   </TouchableOpacity>
 )
 
-const SalesFeedbackScreen = () => {
+const SalesFeedbackScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true)
+
+  const onBackPress = () => {
+    navigation.goBack()
+  }
   const [data, setData] = useState<
     {
       id: any
@@ -91,6 +97,9 @@ const SalesFeedbackScreen = () => {
   return (
     <Container>
       <Background1 />
+      <TouchableOpacity style={{ position: 'absolute', left: 15, top: 40 }} onPress={onBackPress}>
+            <Ionicons name="arrow-back-sharp" size={32} color="#fff" />
+        </TouchableOpacity>
       <View style={{ paddingTop: 110, flex: 1 }}>
         <Text style={salesFedStyle.headerText}>Listado de tus productos</Text>
         <SafeAreaView>

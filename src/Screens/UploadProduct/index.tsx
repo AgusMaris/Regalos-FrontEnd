@@ -8,11 +8,13 @@ import Api from '../../Api'
 import { black } from "react-native-paper/lib/typescript/styles/colors"
 import { useAuth } from "../../Components/Providers/AuthProvider"
 import { User } from "parse"
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 
 
 
-const UploadProductScreen = ()=>{
+
+const UploadProductScreen = ({navigation})=>{
 
     const {user} = useAuth()
     const [prod,setProd] = useState({})
@@ -23,6 +25,9 @@ const UploadProductScreen = ()=>{
         Api.Gifts.uploadGift(prod,data,user?.id)
     }
 
+    const onBackPress = () => {
+        navigation.goBack()
+      }
     const handleRemoveData = (name:string)=>{
         setData(data.filter(v=> v!=name))
     }
@@ -54,6 +59,9 @@ const UploadProductScreen = ()=>{
             >
                 Cargar Producto
             </Text>
+        <TouchableOpacity style={{ position: 'absolute', left: 15, top: 40 }} onPress={onBackPress}>
+            <Ionicons name="arrow-back-sharp" size={32} color="#fff" />
+        </TouchableOpacity>
     <View >
        <View style={{ width: '80%',
                     height: '75%',
