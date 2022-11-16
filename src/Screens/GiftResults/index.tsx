@@ -9,7 +9,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { GiftResultsScreenProps } from './types'
 import MysteriousBox from './components/MysteriousBox'
 import { Button } from '../../Components/Buttons'
-import Background2 from '../../Components/Backgrounds/Background2'
+import Background2 from '../../Components/Backgrounds/Background1'
 
 const GiftResultsScreen = ({ navigation, route: { params } }: GiftResultsScreenProps) => {
   const { gifts, getGifts } = Object.entries(params.score).length != 0 ? useGifts(params.score) : useGifts({})
