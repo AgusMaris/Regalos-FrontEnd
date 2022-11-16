@@ -32,7 +32,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
           marginTop: 20,
         }}
       >
-        Busquemos tu Regalo!😉
+        Busquemos el regalo para { beneficiary?.name }!😉
       </Text>
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
         <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20, flex: 1 }}>
