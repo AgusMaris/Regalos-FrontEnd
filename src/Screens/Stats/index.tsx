@@ -119,7 +119,7 @@ const StatsScreen = (props: StatsScreenProps) => {
           <PieChart
             data={mappedData}
             width={screenWidth}
-            height={400}
+            height={300}
             chartConfig={chartConfig}
             accessor={'value'}
             backgroundColor={'transparent'}

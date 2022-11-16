@@ -51,7 +51,7 @@ export default function RootNavigator({}: Props) {
       <RootStack.Navigator>
         {user ? (
           <>
-            {user.isAdmin ? (
+            {user.type === 'Administrador' ? (
               <RootStack.Screen name="Stats" component={StatsScreen} options={{ headerShown: false }} />
             ) : (
               <>
@@ -59,7 +59,7 @@ export default function RootNavigator({}: Props) {
                   name="Beneficiary"
                   component={BeneficiaryScreen}
                   options={{
-                      headerShown:false
+                    headerShown: false,
                   }}
                 />
                 <RootStack.Screen
@@ -100,10 +100,10 @@ export default function RootNavigator({}: Props) {
                   }}
                   component={GiftResultsScreen}
                 />
-                <RootStack.Screen 
+                <RootStack.Screen
                   name="UploadProduct"
-                  options={{headerShown: false}} 
-                  component={UploadProductScreen} 
+                  options={{ headerShown: false }}
+                  component={UploadProductScreen}
                 />
                 <RootStack.Screen
                   name="AddBeneficiary"

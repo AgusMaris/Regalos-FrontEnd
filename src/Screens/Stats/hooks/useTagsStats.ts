@@ -10,7 +10,7 @@ export default function useTagsStats() {
   })
 
   useEffect(() => {
-    Api.Stats.getTagsWithCount('').then((d) => {
+    Api.Stats.getTagsWithCount().then((d) => {
       setTagsCount({
         isLoading: false,
         data: d,

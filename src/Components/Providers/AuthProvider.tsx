@@ -5,8 +5,9 @@ import createClient from '../../services/Auth'
 type User = {
   id: string
   name: string
+  lastName: string
   email: string
-  isAdmin?: boolean
+  type: 'Buscador' | 'Vendedor' | 'Administrador'
 }
 
 type AuthContextType = {
@@ -14,7 +15,7 @@ type AuthContextType = {
   login: (email: string, password: string) => Promise<void>
   logout?: () => void
   register?: (email: string, password: string) => Promise<void>
-  chooseBeneficiary: (beneficiary: Beneficiary) => void
+  chooseBeneficiary: (beneficiary: Beneficiary | null) => void
   beneficiary: Beneficiary | null
 }
 
@@ -35,7 +36,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         email,
         id: 'admin',
         name: 'admin',
-        isAdmin: true,
+        lastName: 'admin',
+        type: 'Administrador',
       })
       return
     }
@@ -49,14 +51,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         id: res.user.id,
         name: res.user.user_metadata.nombre,
         lastName: res.user.user_metadata.apellido,
-        type:res.user.user_metadata.tipo
+        type: res.user.user_metadata.tipo,
       }
       console.log('user logged in', user)
       setUser(user)
     }
   }
 
-  const chooseBeneficiary = (beneficiary: Beneficiary) => {
+  const chooseBeneficiary = (beneficiary: Beneficiary | null) => {
     setChosenBeneficiary(beneficiary)
   }
 

@@ -12,7 +12,7 @@ const URLS = {
   prod: 'https://regalos-backend-production.up.railway.app',
 }
 
-const API_URL = URLS.local
+const API_URL = URLS.prod
 
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -115,9 +115,9 @@ const Api = {
 
       return data
     },
-    uploadGift: async (prod:{},data:string[],id_user:string)=>{
+    uploadGift: async (prod: {}, data: string[], id_user: string) => {
       try {
-        apiClient.post('/uploadgift',{...prod,tag:data,id_user})
+        apiClient.post('/uploadgift', { ...prod, tag: data, id_user })
       } catch (error) {
         console.log(error)
       }
@@ -169,18 +169,18 @@ const Api = {
     },
   },
   Beneficiaries: {
-    getBeneficiaries: async (id_user:string): Promise<Beneficiary[] | undefined> => {
+    getBeneficiaries: async (id_user: string): Promise<Beneficiary[] | undefined> => {
       try {
         console.log(id_user)
-        const { data } = await apiClient.post<Beneficiary[]>('/getbeneficiary',{ id_user })
+        const { data } = await apiClient.post<Beneficiary[]>('/getbeneficiary', { id_user })
         return data
       } catch (e) {
         console.log(e)
       }
     },
-    postBeneficiary: async (name: string, apellido: string, id_user:string): Promise<void> => {
+    postBeneficiary: async (name: string, apellido: string, id_user: string): Promise<void> => {
       try {
-        const res = await apiClient.post('/newbeneficiary', { name, apellido,id_user })
+        const res = await apiClient.post('/newbeneficiary', { name, apellido, id_user })
         console.log(res)
       } catch (e) {
         console.log(e)
@@ -189,23 +189,26 @@ const Api = {
   },
 
   Stats: {
-    getTagsWithCount: async (userId: string): Promise<{ [tag: string]: number } | null> => {
-      await delay(2000)
-      const { data } = await apiClient.get<
-        {
-          idetiqueta: number
-          etiqueta: string
-          count: number
-        }[]
-      >('/getBoughtGiftsTags')
+    getTagsWithCount: async (): Promise<{ [tag: string]: number } | undefined> => {
+      try {
+        const { data } = await apiClient.get<
+          {
+            idetiqueta: number
+            etiqueta: string
+            count: number
+          }[]
+        >('/getBoughtGiftsTags')
 
-      const tags: Record<string, number> = {}
+        const tags: Record<string, number> = {}
 
-      for (const tag of data) {
-        tags[tag.etiqueta] = tag.count
+        for (const tag of data) {
+          tags[tag.etiqueta] = tag.count
+        }
+
+        return tags
+      } catch (e) {
+        console.log(e)
       }
-
-      return tags
     },
   },
 }
