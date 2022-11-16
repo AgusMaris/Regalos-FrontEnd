@@ -1,0 +1,49 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "title": "Le gusta el deporte?",
+      "answers": [
+        { "text": "Si", "id": "1", "type": "affirmative" },
+        { "text": "No", "id": "2", "type": "negative" }
+      ],
+      "tags": ["deporte", "salud", "futbol"]
+    },
+    {
+      "id": "2",
+      "title": "Le gusta la musica?",
+      "answers": [
+        { "text": "Si", "id": "1", "type": "affirmative" },
+        { "text": "No", "id": "2", "type": "negative" }
+      ],
+      "tags": ["deporte", "salud", "futbol"]
+    },
+    {
+      "id": "3",
+      "title": "Le gusta la lectura?",
+      "answers": [
+        { "text": "Si", "id": "1", "type": "affirmative" },
+        { "text": "No", "id": "2", "type": "negative" }
+      ],
+      "tags": ["deporte", "salud", "futbol"]
+    },
+    {
+      "id": "4",
+      "title": "Le gusta la tecnologia?",
+      "answers": [
+        { "text": "Si", "id": "1", "type": "affirmative" },
+        { "text": "No", "id": "2", "type": "negative" }
+      ],
+      "tags": ["deporte", "salud", "futbol"]
+    },
+    {
+      "id": "5",
+      "title": "Le gusta la naturaleza?",
+      "answers": [
+        { "text": "Si", "id": "1", "type": "affirmative" },
+        { "text": "No", "id": "2", "type": "negative" }
+      ],
+      "tags": ["deporte", "salud", "futbol"]
+    }
+  ]
+}

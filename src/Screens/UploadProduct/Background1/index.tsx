@@ -1,10 +1,7 @@
 import * as React from 'react'
-import { Dimensions, View } from 'react-native'
+import { View } from 'react-native'
 import Svg, { G, Path, Defs, ClipPath } from 'react-native-svg'
 import colors from '../../../Assets/colors'
-
-const WIDTH = Math.round(Dimensions.get('screen').width)
-const HEIGHT = Math.round(Dimensions.get('screen').height)
 
 const Background1 = (props) => (
   <View
@@ -13,12 +10,10 @@ const Background1 = (props) => (
     }}
   >
     <Svg
-      width={WIDTH}
-      height={HEIGHT}
+      width={400}
+      height={844}
       viewBox="0 0 390 844"
-      style={{
-        backgroundColor: colors.primary,
-      }}
+      preserveAspectRatio="xMidYMid slice"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}

@@ -1,17 +1,19 @@
 import * as React from 'react'
 import { Dimensions, View } from 'react-native'
 import Svg, { SvgProps, G, Path, Defs, ClipPath } from 'react-native-svg'
+import colors from '../../../Assets/colors'
 
-const WIDTH = Math.round(Dimensions.get('screen').width + 10)
-const HEIGHT = Math.round(Dimensions.get('screen').height + 10)
+const WIDTH = Math.round(Dimensions.get('screen').width)
+const HEIGHT = Math.round(Dimensions.get('screen').height)
 
 const SvgComponent = (props: SvgProps) => {
   console.log(WIDTH, HEIGHT)
   return (
     <View style={{ position: 'absolute' }}>
       <Svg
-        width={397}
-        height={860}
+        width={WIDTH}
+        height={HEIGHT}
+        style={{ backgroundColor: colors.primary }}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         {...props}

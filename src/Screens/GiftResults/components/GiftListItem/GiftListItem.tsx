@@ -19,7 +19,7 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
   const [fav, setFav] = useState(false)
   const appState = useRef(AppState.currentState)
   const [storeOpened, setStoreOpened] = useState(false)
-  const { user } = useAuth()
+  const { user, beneficiary } = useAuth()
   const navigation = useNavigation<NavigationProp<RootStackParamList, 'GiftResults'>>()
 
   useEffect(() => {
@@ -35,8 +35,8 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
           {
             text: 'Si',
             onPress: () => {
-              Api.Gifts.buyGift(gift.id as string, user!.id)
-              navigation.navigate('Feedback', { id_regalo: gift.id!})
+              Api.Gifts.buyGift(gift.id as string, user!.id, beneficiary!.id)
+              navigation.navigate('Feedback', { id_regalo: gift.id! })
             },
           },
         ])
@@ -72,7 +72,7 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
             backgroundColor: colors.primary,
             position: 'absolute',
             right: 0,
-            borderTopRightRadius:10,
+            borderTopRightRadius: 10,
             width: '10%',
             height: 40,
           }}
@@ -86,7 +86,7 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
             <Image
               source={{ uri: gift.imgSource }}
               style={{
-                marginTop:20,
+                marginTop: 20,
                 height: '70%',
                 width: '35%',
                 resizeMode: 'contain',
@@ -94,27 +94,34 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
             />
           )}
           <View style={{ flex: 1 }}>
-            <Text style={{ color: colors.darkGrey, fontWeight: 'bold', fontSize: 18, marginTop: 10,marginRight:50 }}>
+            <Text
+              style={{
+                color: colors.darkGrey,
+                fontWeight: 'bold',
+                fontSize: 18,
+                marginTop: 10,
+                marginRight: 50,
+              }}
+            >
               {gift.name}
             </Text>
             <TouchableOpacity
               onPress={() => handleGoToStore(gift.name)}
               style={{
-                position:'absolute',
-                backgroundColor:'red',
-                width:50,
-                height:40,
+                position: 'absolute',
+                backgroundColor: 'red',
+                width: 50,
+                height: 40,
                 marginTop: 80,
                 alignSelf: 'flex-end',
                 marginBottom: 20,
                 justifyContent: 'flex-end',
                 alignItems: 'flex-end',
-  
               }}
             >
               <Image
                 source={require('../GiftListItem/mercadolibre.png')}
-                style={{ width: 50, height: 40, marginTop:60}}
+                style={{ width: 50, height: 40, marginTop: 60 }}
               ></Image>
             </TouchableOpacity>
           </View>
