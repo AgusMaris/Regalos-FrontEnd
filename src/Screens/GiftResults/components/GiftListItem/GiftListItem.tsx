@@ -7,6 +7,7 @@ import Api from '../../../../Api'
 import { useAuth } from '../../../../Components/Providers/AuthProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '../../../../Navigation/RootNavigator'
+import { Button } from 'react-native-paper'
 
 export interface GiftListItemInterface {
   gift: GiftSchema
@@ -21,6 +22,7 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
   const [storeOpened, setStoreOpened] = useState(false)
   const { user, beneficiary } = useAuth()
   const navigation = useNavigation<NavigationProp<RootStackParamList, 'GiftResults'>>()
+  console.log(gift.price)
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
@@ -55,6 +57,23 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
   const handleGoToStore = (giftName: string) => {
     setStoreOpened(true)
     Linking.openURL('https://listado.mercadolibre.com.ar/' + giftName.split(' ').join('-'))
+  }
+
+  
+  const buyVendorItem = ()=>{
+    Alert.alert('Esta seguro que desea realizar la compra?', '', [
+      {
+        text: 'No',
+        onPress: () => console.log('No Pressed'),
+      },
+      {
+        text: 'Si',
+        onPress: () => {
+          Api.Gifts.buyGift(gift.id as string, user!.id, beneficiary!.id)
+          navigation.navigate('Feedback', { id_regalo: gift.id! })
+        },
+      },
+    ])
   }
   return (
     <View style={{ alignItems: 'center', marginTop: 20 }}>
@@ -105,7 +124,8 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
             >
               {gift.name}
             </Text>
-            <TouchableOpacity
+            {gift?.price == null ? (<>
+              <TouchableOpacity
               onPress={() => handleGoToStore(gift.name)}
               style={{
                 position: 'absolute',
@@ -123,7 +143,13 @@ const GiftListItem: React.FC<GiftListItemInterface> = ({ gift }) => {
                 source={require('../GiftListItem/mercadolibre.png')}
                 style={{ width: 50, height: 40, marginTop: 60 }}
               ></Image>
-            </TouchableOpacity>
+            </TouchableOpacity></>):(<>
+            <Text style={{alignSelf:'flex-end',right:15,flex:1,marginTop:35,fontSize:20}}>$ {gift?.price}</Text>
+            <Button style={{ bottom:5,alignSelf:'flex-end'}} onPress={()=> buyVendorItem()}>
+              Comprar
+            </Button>
+            </>)}
+
           </View>
         </View>
         <View

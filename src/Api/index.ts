@@ -63,7 +63,6 @@ const Api = {
         console.log('🚀 ~ file: index.ts ~ line 51 ~ getGifts: ~ score', data)
 
         const res = await apiClient.post('/findrecom', data)
-        console.log(res.data)
         return res.data
           .sort((a: any, b: any) => b.puntaje - a.puntaje)
           .map(
@@ -72,6 +71,7 @@ const Api = {
                 imgSource: e.image,
                 name: e.nombre,
                 id: e.id,
+                price:e.price
               } as GiftSchema)
           )
       } catch (err) {
@@ -88,6 +88,7 @@ const Api = {
               imgSource: value.image,
               name: value.name,
               id: value.id,
+              price:value.price
             } as GiftSchema)
         )
       } catch (error) {

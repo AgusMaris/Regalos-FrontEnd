@@ -97,58 +97,38 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
             </View>
           </View>
         </>
-      ) : (
-        <>
-          <Text
-            style={{
-              fontSize: 25,
-              fontWeight: 'bold',
-              color: colors.primary,
-              marginBottom: 10,
-              alignSelf: 'center',
-              marginTop: 20,
-            }}
-          ></Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <View
-              style={{
-                elevation: 2,
-                padding: 10,
-                borderRadius: 1,
-                margin: 20,
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <TouchableOpacity onPress={() => navigation.navigate('UploadProduct')}>
-                <Image
-                  source={require('./utils/product.png')}
-                  style={{ width: 100, height: 100, alignSelf: 'center' }}
-                ></Image>
-                <Text style={{ alignSelf: 'center' }}>Cargar Productos</Text>
-              </TouchableOpacity>
-            </View>
+      ) :(<>
+        <Text
+        style={{
+          fontSize: 25,
+          fontWeight: 'bold',
+          color: colors.primary,
+          marginBottom: 10,
+          alignSelf: 'center',
+          marginTop: 20,
+        }}
+      >
+        Vamos a mejorar tu negocio!
+        </Text>
+      <View style={{marginTop:100}}>
 
-            <View
-              style={{
-                elevation: 2,
-                padding: 10,
-                borderRadius: 1,
-                margin: 20,
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <TouchableOpacity onPress={() => navigation.navigate('SalesFeedback')}>
-                <Image source={require('./utils/fastmode.png')} style={{ width: 120, height: 120 }}></Image>
-                <Text style={{ alignSelf: 'center' }}>Tus ventas</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </>
-      )}
+      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20,flex:1,justifyContent:'center',alignItems:'center'}}>
+          <TouchableOpacity onPress={() => navigation.navigate('UploadProduct')}>
+            <Image source={require('./utils/product.png')} style={{ width: 100, height: 100 ,alignSelf:'center'}}></Image>
+            <Text style={{ alignSelf: 'center' }}>Cargar Productos</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20, flex: 1,justifyContent:'center',alignItems:'center' }}>
+          <TouchableOpacity onPress={() => navigation.navigate('SalesFeedback')}>
+            <Image source={require('./utils/fastmode.png')} style={{ width: 120, height: 120 }}></Image>
+            <Text style={{ alignSelf: 'center' }}>Tus ventas</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      </View>
+      </>)}
     </View>
   )
 }

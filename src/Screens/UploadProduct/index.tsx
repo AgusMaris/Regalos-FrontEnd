@@ -23,6 +23,7 @@ const UploadProductScreen = ({navigation})=>{
     const inputRef = useRef<React.RefObject<typeof TextInput>>(null)
     const handleUploadGift = ()=>{   
         Api.Gifts.uploadGift(prod,data,user?.id)
+        navigation.goBack()
     }
 
     const onBackPress = () => {
