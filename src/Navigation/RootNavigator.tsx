@@ -10,6 +10,7 @@ import QuestionsScreen from '../Screens/Questions'
 import { useAuth } from '../Components/Providers/AuthProvider'
 import colors from '../Assets/colors'
 import FeedbackScreen from '../Screens/Feedback'
+import SalesFeedbackScreen from '../Screens/SalesFeedback'
 import AddBeneficiaryScreen from '../Screens/AddBeneficiary'
 import BeneficiaryScreen from '../Screens/Beneficiary'
 import ListBeneficiaryScreen from '../Screens/ListBeneficiary'
@@ -32,9 +33,12 @@ export type RootStackParamList = {
   AddBeneficiary: undefined
   ListBeneficiary: undefined
   Questions: undefined
-  Feedback: undefined
+  Feedback: {
+    id_regalo: string
+  }
   Stats: undefined
   UploadProduct: undefined
+  SalesFeedback: undefined
 }
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
@@ -82,6 +86,11 @@ export default function RootNavigator({}: Props) {
                     },
                   }}
                   component={HomeScreen}
+                />
+                <RootStack.Screen
+                  name="SalesFeedback"
+                  component={SalesFeedbackScreen}
+                  options={{ headerShown: false }}
                 />
                 <RootStack.Screen
                   name="Questions"

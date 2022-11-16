@@ -3,6 +3,7 @@ import React from 'react'
 import { HomeScreenProps } from './types'
 import colors from '../../Assets/colors'
 import { white } from 'react-native-paper/lib/typescript/styles/colors'
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { useAuth } from '../../Components/Providers/AuthProvider'
 
 const HEIGHT = Dimensions.get('window').height
@@ -34,14 +35,14 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         Busquemos tu Regalo!😉
       </Text>
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20 }}>
+        <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20, flex: 1 }}>
           <TouchableOpacity onPress={() => navigation.navigate('Questions')}>
             <Image source={require('./utils/questionmode.png')} style={{ width: 120, height: 120 }}></Image>
             <Text style={{ alignSelf: 'center' }}>Llenar Formulario</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20 }}>
+        <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20, flex: 1 }}>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('GiftResults', { score: results })
@@ -54,17 +55,17 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       </View>
 
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20 }}>
+        <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20, flex: 1 }}>
           <TouchableOpacity onPress={() => {}}>
             <Image source={require('./utils/fastmode.png')} style={{ width: 120, height: 120 }}></Image>
             <Text style={{ alignSelf: 'center' }}>Cargar Productos</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20 }}>
-          <TouchableOpacity onPress={() => {}}>
+        <View style={{ elevation: 2, padding: 10, borderRadius: 1, margin: 20, flex: 1 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('SalesFeedback')}>
             <Image source={require('./utils/fastmode.png')} style={{ width: 120, height: 120 }}></Image>
-            <Text style={{ alignSelf: 'center' }}>Cargar Productos</Text>
+            <Text>Tus ventas</Text>
           </TouchableOpacity>
         </View>
       </View>

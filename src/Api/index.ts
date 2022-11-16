@@ -94,7 +94,42 @@ const Api = {
         console.log(error)
       }
     },
+
+    getGiftsFromVendor: async (
+      vendorId: string
+    ): Promise<
+      {
+        id: any
+        name: any
+        feedback: {
+          positive: any
+          negative: any
+        }
+      }[]
+    > => {
+      const { data } = await apiClient.get('/getvendor', {
+        id_usuario: vendorId,
+      })
+
+      console.log(data)
+
+      return data
+    },
+
+    sendGiftFeedback: async (id_regalo: string, id_user: string, option: 's' | 'n') => {
+      try {
+        const res = await apiClient.post('/uploadfeedback', {
+          id_regalo: id_regalo,
+          id_usuario: id_user,
+          calificacion: option,
+        })
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
+
   Questions: {
     getQuestions: async (): Promise<Question[] | undefined> => {
       try {
