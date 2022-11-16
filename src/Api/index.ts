@@ -8,7 +8,7 @@ import MockedGifts from './MockedGifts.json'
 const gifts = MockedGifts.data
 
 const URLS = {
-  local: 'http://192.168.0.3:3000',
+  local: 'http://192.168.0.10:3000',
   prod: 'https://regalos-backend-production.up.railway.app',
 }
 
@@ -115,6 +115,13 @@ const Api = {
 
       return data
     },
+    uploadGift: async (prod:{},data:string[],id_user:string)=>{
+      try {
+        apiClient.post('/uploadgift',{...prod,tag:data,id_user})
+      } catch (error) {
+        console.log(error)
+      }
+    },
 
     sendGiftFeedback: async (id_regalo: string, id_user: string, option: 's' | 'n') => {
       try {
@@ -162,17 +169,18 @@ const Api = {
     },
   },
   Beneficiaries: {
-    getBeneficiaries: async (): Promise<Beneficiary[] | undefined> => {
+    getBeneficiaries: async (id_user:string): Promise<Beneficiary[] | undefined> => {
       try {
-        const { data } = await apiClient.get<Beneficiary[]>('/getbeneficiary')
+        console.log(id_user)
+        const { data } = await apiClient.post<Beneficiary[]>('/getbeneficiary',{ id_user })
         return data
       } catch (e) {
         console.log(e)
       }
     },
-    postBeneficiary: async (name: string, apellido: string): Promise<void> => {
+    postBeneficiary: async (name: string, apellido: string, id_user:string): Promise<void> => {
       try {
-        const res = await apiClient.post('/newbeneficiary', { name, apellido })
+        const res = await apiClient.post('/newbeneficiary', { name, apellido,id_user })
         console.log(res)
       } catch (e) {
         console.log(e)

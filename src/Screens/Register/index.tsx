@@ -154,7 +154,11 @@ const style = StyleSheet.create({
   itemContainer:{
     backgroundColor: '#00000077',
     flex:1
-
+  },
+  input: {
+    margin: 3,
+    height: 50,
+    backgroundColor: '#C0D1CD',
   }
 });
 

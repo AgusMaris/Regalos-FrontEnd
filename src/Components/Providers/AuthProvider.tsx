@@ -47,12 +47,13 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       const user = {
         email: res.user.email as string,
         id: res.user.id,
-        name: 'usuario de prueba',
+        name: res.user.user_metadata.nombre,
+        lastName: res.user.user_metadata.apellido,
+        type:res.user.user_metadata.tipo
       }
       console.log('user logged in', user)
       setUser(user)
     }
-    console.log(res)
   }
 
   const chooseBeneficiary = (beneficiary: Beneficiary) => {

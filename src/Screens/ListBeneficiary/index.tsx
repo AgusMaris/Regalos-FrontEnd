@@ -20,10 +20,10 @@ const API = 'http://192.168.0.3:3000/getbeneficiary'
 
 const ListBeneficiaryScreen = ({ navigation }) => {
   const [beneficiary, setBeneficiary] = React.useState<Beneficiary[]>([])
-  const { chooseBeneficiary } = useAuth()
+  const { chooseBeneficiary,user } = useAuth()
 
   React.useEffect(() => {
-    Api.Beneficiaries.getBeneficiaries().then((response) => {
+    Api.Beneficiaries.getBeneficiaries(user?.id).then((response) => {
       if (response) {
         setBeneficiary(response)
         console.log(response)

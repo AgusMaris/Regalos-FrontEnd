@@ -6,19 +6,22 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { PrivateValueStore } from '@react-navigation/native'
 import Api from '../../Api'
+import { useAuth } from '../../Components/Providers/AuthProvider'
 
 type Props = {
   setAuth: () => void
 }
-const API = 'http://192.168.0.3:3000/newbeneficiary'
+const API = 'http://192.168.0.10:3000/newbeneficiary'
 
 const AddBeneficiaryScreen = ({ navigation }) => {
+
+  const {user} = useAuth()
   const [name, setName] = useState({ value: '' })
   const [apellido, setApellido] = useState({ value: '' })
 
   function createPost() {
-    console.log(name.value, apellido.value)
-    Api.Beneficiaries.postBeneficiary(name.value, apellido.value).then(() => {
+    console.log(name.value, apellido.value, user?.id)
+    Api.Beneficiaries.postBeneficiary(name.value, apellido.value,user?.id).then(() => {
       navigation.goBack()
     })
   }

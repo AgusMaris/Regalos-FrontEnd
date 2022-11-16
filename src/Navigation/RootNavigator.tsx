@@ -109,7 +109,7 @@ export default function RootNavigator({}: Props) {
                   }}
                   component={GiftResultsScreen}
                 />
-                <RootStack.Screen name="UploadProduct" component={UploadProductScreen} />
+            <RootStack.Screen name="UploadProduct" options={{headerShown: false}} component={UploadProductScreen} />
                 <RootStack.Screen
                   name="AddBeneficiary"
                   options={{ headerShown: false }}
