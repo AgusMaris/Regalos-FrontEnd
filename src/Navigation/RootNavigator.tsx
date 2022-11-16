@@ -20,11 +20,12 @@ export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
   Register: undefined;
-  AddBeneficiary: undefined;
-  ListBeneficiary: undefined;
+
   GiftResults: {
     score: { [tag: string]: number };
   };
+  AddBeneficiary: undefined;
+  ListBeneficiary: undefined;
   Questions: undefined;
   Feedback: undefined;
 };
@@ -102,6 +103,7 @@ export default function RootNavigator({}: Props) {
                 },
               }}
             />
+
             <RootStack.Screen
               name="Login"
               options={{

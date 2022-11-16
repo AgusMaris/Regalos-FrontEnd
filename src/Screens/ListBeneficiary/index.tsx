@@ -13,7 +13,7 @@ import { Container } from "../../Components/Container";
 import { salesFedStyle } from "./style";
 import axios from "axios";
 
-const API = "http://192.168.88.6:3000/getbeneficiary";
+const API = "http://192.168.0.102:3000/getbeneficiary";
 
 const ListBeneficiaryScreen = () => {
   const [isLoading, setLoading] = useState(true);

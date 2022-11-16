@@ -9,9 +9,7 @@ import {
 import React from "react";
 import { HomeScreenProps } from "./types";
 import colors from "../../Assets/colors";
-import { red400, white } from "react-native-paper/lib/typescript/styles/colors";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { Container } from "../../Components/Container";
+import { white } from "react-native-paper/lib/typescript/styles/colors";
 
 const HEIGHT = Dimensions.get("window").height;
 const WIDTH = Dimensions.get("window").width;
@@ -38,20 +36,8 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
           marginTop: 20,
         }}
       >
-        Busquemos tu Regalo!😉
+        Busquemos tu Regalo!
       </Text>
-
-      <View
-        style={{
-          flexDirection: "column-reverse",
-          alignItems: "flex-end",
-        }}
-      >
-        <TouchableOpacity onPress={() => navigation.navigate("AddBeneficiary")}>
-          <AntDesign name="adduser" size={35} />
-        </TouchableOpacity>
-      </View>
-
       <View
         style={{
           justifyContent: "center",

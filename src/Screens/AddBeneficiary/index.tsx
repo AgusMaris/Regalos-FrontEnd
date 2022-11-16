@@ -9,7 +9,7 @@ import { PrivateValueStore } from "@react-navigation/native";
 type Props = {
   setAuth: () => void;
 };
-const API = "http://192.168.88.6:3000/newbeneficiary";
+const API = "http://192.168.0.102:3000/newbeneficiary";
 
 const AddBeneficiaryScreen = () => {
   const [name, setName] = useState({ value: "" });

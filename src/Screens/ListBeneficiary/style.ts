@@ -20,7 +20,7 @@ export const salesFedStyle = StyleSheet.create({
     alignItems: "flex-start",
   },
   listName: {
-    fontSize: 20,
+    fontSize: 25,
     flex: 0.6,
 
     alignItems: "flex-start",
