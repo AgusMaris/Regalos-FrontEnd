@@ -144,6 +144,27 @@ const Api = {
       }
     },
   },
+
+  Stats: {
+    getTagsWithCount: async (userId: string): Promise<{ [tag: string]: number } | null> => {
+      await delay(2000)
+      const { data } = await apiClient.get<
+        {
+          idetiqueta: number
+          etiqueta: string
+          count: number
+        }[]
+      >('/getBoughtGiftsTags')
+
+      const tags: Record<string, number> = {}
+
+      for (const tag of data) {
+        tags[tag.etiqueta] = tag.count
+      }
+
+      return tags
+    },
+  },
 }
 
 export default Api

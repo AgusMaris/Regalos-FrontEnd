@@ -14,6 +14,8 @@ import AddBeneficiaryScreen from '../Screens/AddBeneficiary'
 import BeneficiaryScreen from '../Screens/Beneficiary'
 import ListBeneficiaryScreen from '../Screens/ListBeneficiary'
 import { Beneficiary } from '../schemas/Beneficiary'
+import StatsScreen from '../Screens/Stats'
+import UploadProductScreen from '../Screens/UploadProduct'
 
 type Props = {}
 export type RootStackParamList = {
@@ -31,6 +33,8 @@ export type RootStackParamList = {
   ListBeneficiary: undefined
   Questions: undefined
   Feedback: undefined
+  Stats: undefined
+  UploadProduct: undefined
 }
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
@@ -43,59 +47,72 @@ export default function RootNavigator({}: Props) {
       <RootStack.Navigator>
         {user ? (
           <>
-            <RootStack.Screen
-              name="Beneficiary"
-              component={BeneficiaryScreen}
-              options={{
-                headerTitleAlign: 'center',
-                title: 'Bienvenido',
-                headerStyle: {
-                  backgroundColor: colors.primary,
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                },
-              }}
-            />
-            <RootStack.Screen
-              name="Home"
-              options={{
-                headerTitleAlign: 'center',
-                title: 'Bienvenido',
-                headerStyle: {
-                  backgroundColor: colors.primary,
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                },
-              }}
-              component={HomeScreen}
-            />
-
-            <RootStack.Screen name="Questions" component={QuestionsScreen} options={{ headerShown: false }} />
-            <RootStack.Screen name="Feedback" component={FeedbackScreen} options={{ headerShown: false }} />
-            <RootStack.Screen
-              name="GiftResults"
-              options={{
-                headerShown: false,
-              }}
-              component={GiftResultsScreen}
-            />
-
-            <RootStack.Screen
-              name="AddBeneficiary"
-              options={{ headerShown: false }}
-              component={AddBeneficiaryScreen}
-            />
-            <RootStack.Screen
-              name="ListBeneficiary"
-              options={{ headerShown: false }}
-              component={ListBeneficiaryScreen}
-            />
+            {user.isAdmin ? (
+              <RootStack.Screen name="Stats" component={StatsScreen} options={{ headerShown: false }} />
+            ) : (
+              <>
+                <RootStack.Screen
+                  name="Beneficiary"
+                  component={BeneficiaryScreen}
+                  options={{
+                    headerTitleAlign: 'center',
+                    title: 'Bienvenido',
+                    headerStyle: {
+                      backgroundColor: colors.primary,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                      fontWeight: 'bold',
+                      fontSize: 30,
+                    },
+                  }}
+                />
+                <RootStack.Screen
+                  name="Home"
+                  options={{
+                    headerTitleAlign: 'center',
+                    title: 'Bienvenido',
+                    headerStyle: {
+                      backgroundColor: colors.primary,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                      fontWeight: 'bold',
+                      fontSize: 30,
+                    },
+                  }}
+                  component={HomeScreen}
+                />
+                <RootStack.Screen
+                  name="Questions"
+                  component={QuestionsScreen}
+                  options={{ headerShown: false }}
+                />
+                <RootStack.Screen
+                  name="Feedback"
+                  component={FeedbackScreen}
+                  options={{ headerShown: false }}
+                />
+                <RootStack.Screen
+                  name="GiftResults"
+                  options={{
+                    headerShown: false,
+                  }}
+                  component={GiftResultsScreen}
+                />
+                <RootStack.Screen name="UploadProduct" component={UploadProductScreen} />
+                <RootStack.Screen
+                  name="AddBeneficiary"
+                  options={{ headerShown: false }}
+                  component={AddBeneficiaryScreen}
+                />
+                <RootStack.Screen
+                  name="ListBeneficiary"
+                  options={{ headerShown: false }}
+                  component={ListBeneficiaryScreen}
+                />
+              </>
+            )}
           </>
         ) : (
           <>
@@ -111,7 +128,7 @@ export default function RootNavigator({}: Props) {
               options={{
                 headerShown: false,
               }}
-              component={(props) => <RegisterScreen {...props} setAuth={toggleAuth} />}
+              component={RegisterScreen}
             />
           </>
         )}
