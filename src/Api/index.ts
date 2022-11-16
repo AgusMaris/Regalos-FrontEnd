@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Beneficiary } from '../schemas/Beneficiary'
 import { GiftSchema } from '../schemas/Gift'
 import { Question } from '../schemas/Question'
 import { delay } from '../utils/functions'
@@ -8,7 +9,7 @@ const gifts = MockedGifts.data
 
 const URLS = {
   local: 'http://192.168.0.3:3000',
-  prod: 'https://regalos-backend-production.up.railway.app/',
+  prod: 'https://regalos-backend-production.up.railway.app',
 }
 
 const API_URL = URLS.local
@@ -26,27 +27,29 @@ const Api = {
   Gifts: {
     getMysteriousBoxGift: async (
       score: { [tag: string]: number },
-      userId: string
+      userId: string,
+      beneficiaryId: number
     ): Promise<typeof gifts[number]> => {
       const res = await apiClient.post('/mysteriousBox', {
         tags: Object.keys(score),
         userId,
+        beneficiaryId,
       })
-      // const possibleGifts = gifts.filter((gift) => !claimedUserIds[userId]?.includes(gift.id))
-      // const randomGift = possibleGifts[Math.floor(Math.random() * possibleGifts.length)]
-      // claimedUserIds[userId] = [...(claimedUserIds[userId] || []), randomGift.id]
-      // await delay(2000)
       return res.data
     },
-    buyGift: async (giftId: string, userId: string): Promise<void> => {
+    buyGift: async (giftId: string, userId: string, beneficiaryId: number): Promise<void> => {
       try {
-        const res = await apiClient.post('/buyGift', { giftId, userId })
+        const res = await apiClient.post('/buyGift', { giftId, userId, beneficiaryId })
         console.log(res)
       } catch (e) {
         console.log(e)
       }
     },
-    getGifts: async (userId: string, score: { [tag: string]: number }): Promise<GiftSchema[] | undefined> => {
+    getGifts: async (
+      userId: string,
+      score: { [tag: string]: number },
+      beneficiaryId: number
+    ): Promise<GiftSchema[] | undefined> => {
       console.log('requesting to ', API_URL + '/findrecom')
       try {
         const data = {
@@ -55,6 +58,7 @@ const Api = {
             nombre: tag,
             puntaje: score[tag],
           })),
+          beneficiaryId,
         }
         console.log('🚀 ~ file: index.ts ~ line 51 ~ getGifts: ~ score', data)
 
@@ -117,6 +121,24 @@ const Api = {
             } as Question)
         )
         return mappedRes
+      } catch (e) {
+        console.log(e)
+      }
+    },
+  },
+  Beneficiaries: {
+    getBeneficiaries: async (): Promise<Beneficiary[] | undefined> => {
+      try {
+        const { data } = await apiClient.get<Beneficiary[]>('/getbeneficiary')
+        return data
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    postBeneficiary: async (name: string, apellido: string): Promise<void> => {
+      try {
+        const res = await apiClient.post('/newbeneficiary', { name, apellido })
+        console.log(res)
       } catch (e) {
         console.log(e)
       }
