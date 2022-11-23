@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -36,5 +34,6 @@
         "projectId": "5f399500-0b89-45b8-9bb3-83ebfd75ceb5"
       }
     }
-  }
+  },
+  "plugins": ["@config-plugins/detox"]
 }
