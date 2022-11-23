@@ -25,7 +25,7 @@ type AuthProviderProps = {
 
 const userIsAdmin = (email: string, password: string) => email === 'admin@admin.com' && password === 'admin'
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType)
+export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)

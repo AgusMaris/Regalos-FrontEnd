@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@testing-library/react-native": "^11.5.0",
     "@types/parse": "^2.18.18",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.69.1",
