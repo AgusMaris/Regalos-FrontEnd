@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '../test-utils'
+import { render, screen } from '../test-utils'
 import App from '../App'
 import { GiftListItem } from '../src/Screens/GiftResults/components/GiftListItem'
 import HomeScreen from '../src/Screens/Home'
@@ -23,6 +23,7 @@ import WelcomeText from '../src/Screens/Home/components/WelcomeText/WelcomeTest'
 // Silence the warning: Animated: `useNativeDriver` is not supported because the native animated module is missing
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 
+beforeEach(() => (node = screen.find('WelcomeText')))
 describe('Prueba', () => {
   it('debería ser true', () => {
     expect(true).toBe(true)
@@ -31,19 +32,20 @@ describe('Prueba', () => {
 
 describe('<WelcomeText />', () => {
   it('has 1 child', () => {
-    const tree = render(<WelcomeText />).toJSON()
+    const tree = render(<WelcomeText name="Bienvenido" />).toJSON()
     console.log(tree)
     expect(tree.children.length).toBe(1)
   })
-  it('renders on HomeScreen', () => {
-    const tree = render(
+  it('renders on HomeScreen', async () => {
+    render(
       <HomeScreen
         navigation={{
           addListener: jest.fn(),
         }}
       />
     ).toJSON()
-    console.log(tree)
-    expect(true).toBe(true)
+    const welcomeTextValue = await screen.findByTestId('welcomeText')
+    console.log(welcomeTextValue)
+    expect(welcomeTextValue).toHaveTextContent('Welcome to GiftFinder')
   })
 })

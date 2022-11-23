@@ -5,6 +5,7 @@ import colors from '../../Assets/colors'
 import { white } from 'react-native-paper/lib/typescript/styles/colors'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useAuth } from '../../Components/Providers/AuthProvider'
+import WelcomeText from './components/WelcomeText/WelcomeTest'
 
 const HEIGHT = Dimensions.get('window').height
 const WIDTH = Dimensions.get('window').width
@@ -30,30 +31,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     <View>
       {user?.type == 'Buscador' || beneficiary ? (
         <>
-          <Text
-            style={{
-              fontSize: 25,
-              fontWeight: 'bold',
-              color: colors.primary,
-              marginBottom: 10,
-              alignSelf: 'center',
-              marginTop: 20,
-            }}
-          >
-            Busquemos el regalo para
-          </Text>
-          <Text
-            style={{
-              fontSize: 25,
-              fontWeight: 'bold',
-              color: colors.primary,
-              marginBottom: 10,
-              alignSelf: 'center',
-              marginTop: 10,
-            }}
-          >
-            {beneficiary?.name} 😉
-          </Text>
+          <WelcomeText name={beneficiary?.name ?? ''} testID="welcomeText" />
           <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 40 }}>
             <View
               style={{
